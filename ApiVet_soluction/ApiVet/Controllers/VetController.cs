@@ -1,6 +1,7 @@
-﻿using ApiVet.Models;
+﻿using VetDpo = ApiVet.Models.Dto.VetDpo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ApiVet.Datos;
 
 namespace ApiVet.Controllers
 {
@@ -10,12 +11,16 @@ namespace ApiVet.Controllers
     {
         [HttpGet]
 
-        public IEnumerable<Vet> GetVets() {
-            return new List<Vet>
-            {
-                new Vet{id=1,nombre="Probando"},
-                new Vet{id=2,nombre="Vista a la playa"}
-            };
+        public IEnumerable<VetDpo> GetVets() {
+            return VetStore.vetLits;
+        }
+
+
+        [HttpGet("id")]
+        public VetDpo GetVet(int id)
+        {
+            return VetStore.vetLits.FirstOrDefault(v=>v.id==id);
+
         }
     }
 }
