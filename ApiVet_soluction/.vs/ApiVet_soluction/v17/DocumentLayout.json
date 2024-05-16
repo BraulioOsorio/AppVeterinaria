@@ -1,22 +1,34 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\",
+  "WorkspaceRootPath": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|c:\\users\\bb9263\\desktop\\appveterinaria\\apivet_soluction\\apivet\\controllers\\vetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|c:\\proyectos\\veterinaria\\apivet_soluction\\apivet\\controllers\\vetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|solutionrelative:apivet\\controllers\\vetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|c:\\users\\bb9263\\desktop\\appveterinaria\\apivet_soluction\\apivet\\datos\\vetstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|solutionrelative:apivet\\datos\\vetstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|c:\\users\\bb9263\\desktop\\appveterinaria\\apivet_soluction\\apivet\\models\\dto\\vetdpo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|c:\\proyectos\\veterinaria\\apivet_soluction\\apivet\\models\\dto\\vetdpo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|solutionrelative:apivet\\models\\dto\\vetdpo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|c:\\users\\bb9263\\desktop\\appveterinaria\\apivet_soluction\\apivet\\models\\vet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|c:\\proyectos\\veterinaria\\apivet_soluction\\apivet\\models\\vetadmininfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|solutionrelative:apivet\\models\\vetadmininfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|c:\\proyectos\\veterinaria\\apivet_soluction\\apivet\\models\\dto\\admindpo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|solutionrelative:apivet\\models\\dto\\admindpo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|c:\\proyectos\\veterinaria\\apivet_soluction\\apivet\\models\\vet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|solutionrelative:apivet\\models\\vet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|c:\\proyectos\\veterinaria\\apivet_soluction\\apivet\\conexiondb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|solutionrelative:apivet\\conexiondb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|c:\\proyectos\\veterinaria\\apivet_soluction\\apivet\\apivet.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{243BAFA8-82C9-4FD4-8F07-F0BE6CEB5AE8}|ApiVet\\ApiVet.csproj|solutionrelative:apivet\\apivet.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,59 +38,101 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "VetStore.cs",
-              "DocumentMoniker": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\Datos\\VetStore.cs",
-              "RelativeDocumentMoniker": "ApiVet\\Datos\\VetStore.cs",
-              "ToolTip": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\Datos\\VetStore.cs",
-              "RelativeToolTip": "ApiVet\\Datos\\VetStore.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "DocumentIndex": 2,
+              "Title": "VetAdminInfo.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\Models\\VetAdminInfo.cs",
+              "RelativeDocumentMoniker": "ApiVet\\Models\\VetAdminInfo.cs",
+              "ToolTip": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\Models\\VetAdminInfo.cs",
+              "RelativeToolTip": "ApiVet\\Models\\VetAdminInfo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-15T15:01:38.36Z",
-              "IsPinned": true,
+              "WhenOpened": "2024-05-15T23:25:44.807Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Admindpo.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\Models\\Dto\\Admindpo.cs",
+              "RelativeDocumentMoniker": "ApiVet\\Models\\Dto\\Admindpo.cs",
+              "ToolTip": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\Models\\Dto\\Admindpo.cs",
+              "RelativeToolTip": "ApiVet\\Models\\Dto\\Admindpo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-15T23:23:09.028Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Vet.cs",
-              "DocumentMoniker": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\Models\\Vet.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\Models\\Vet.cs",
               "RelativeDocumentMoniker": "ApiVet\\Models\\Vet.cs",
-              "ToolTip": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\Models\\Vet.cs",
+              "ToolTip": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\Models\\Vet.cs",
               "RelativeToolTip": "ApiVet\\Models\\Vet.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-15T15:07:36.883Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "VetController.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\Controllers\\VetController.cs",
+              "RelativeDocumentMoniker": "ApiVet\\Controllers\\VetController.cs",
+              "ToolTip": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\Controllers\\VetController.cs",
+              "RelativeToolTip": "ApiVet\\Controllers\\VetController.cs",
+              "ViewState": "AQIAANsAAAAAAAAAAAAmwOoAAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T14:27:56.145Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "VetDpo.cs",
-              "DocumentMoniker": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\Models\\Dto\\VetDpo.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\Models\\Dto\\VetDpo.cs",
               "RelativeDocumentMoniker": "ApiVet\\Models\\Dto\\VetDpo.cs",
-              "ToolTip": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\Models\\Dto\\VetDpo.cs",
+              "ToolTip": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\Models\\Dto\\VetDpo.cs",
               "RelativeToolTip": "ApiVet\\Models\\Dto\\VetDpo.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-15T14:19:16.733Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "VetController.cs",
-              "DocumentMoniker": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\Controllers\\VetController.cs",
-              "RelativeDocumentMoniker": "ApiVet\\Controllers\\VetController.cs",
-              "ToolTip": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\Controllers\\VetController.cs",
-              "RelativeToolTip": "ApiVet\\Controllers\\VetController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAkwBoAAAAAAAAA",
+              "DocumentIndex": 6,
+              "Title": "ApiVet.csproj",
+              "DocumentMoniker": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\ApiVet.csproj",
+              "RelativeDocumentMoniker": "ApiVet\\ApiVet.csproj",
+              "ToolTip": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\ApiVet.csproj",
+              "RelativeToolTip": "ApiVet\\ApiVet.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-05-15T22:33:20.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ConexionDb.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\ConexionDb.cs",
+              "RelativeDocumentMoniker": "ApiVet\\ConexionDb.cs",
+              "ToolTip": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\ConexionDb.cs",
+              "RelativeToolTip": "ApiVet\\ConexionDb.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-14T14:27:56.145Z",
+              "WhenOpened": "2024-05-15T22:35:12.222Z",
               "EditorCaption": ""
             }
           ]

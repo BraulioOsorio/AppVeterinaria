@@ -14,12 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Vet.cs" />
     <Compile Remove="Models\VetStore.cs" />
   </ItemGroup>
 
 
 
   <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
