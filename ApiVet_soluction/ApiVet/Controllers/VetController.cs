@@ -95,7 +95,7 @@ namespace ApiVet.Controllers
             // Crear la conexión y la consulta SQL con un parámetro
             using (MySqlConnection conexion = MConexion.GetConexionDb())
             {
-                string consulta = "UPDATE VET SET IDENTIFICATION_ADMIN = @identificationAdmin, ADDRESS = @address, PROFITS = @profits, LOSS = @loss, STATE = @state WHERE ID_VET = @id";
+                string consulta = "UPDATE VET SET IDENTIFICATION_ADMIN = @identificationAdmin, ADDRESS = @address, PROFITS = @profits, LOSS = @loss WHERE ID_VET = @id";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
                     // Establecer los parámetros de la consulta SQL
