@@ -105,18 +105,25 @@ namespace ApiVet.Controllers
                     comando.Parameters.AddWithValue("@loss", vetDpo.LOSS);
                     comando.Parameters.AddWithValue("@id", id);
 
-                    // Ejecutar la consulta
-                    int filasAfectadas = comando.ExecuteNonQuery();
+                    try
+                    {
+                        int filasAfectadas = comando.ExecuteNonQuery();
 
-                    // Verificar si se actualizó correctamente
-                    if (filasAfectadas > 0)
+                        if (filasAfectadas > 0)
+                        {
+                            return Ok();
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
+
+                    }catch (Exception ex)
                     {
-                        return Ok(); // Devolver 200 OK si la actualización fue exitosa
+                        return BadRequest("Algo salio mal en el update de vet. "+vetDpo);
                     }
-                    else
-                    {
-                        return NotFound(); // Devolver 404 Not Found si no se encontró el registro
-                    }
+
+
                 }
             }
         }
@@ -133,17 +140,24 @@ namespace ApiVet.Controllers
                 {
                     // Establecer el parámetro de la consulta SQL
                     comando.Parameters.AddWithValue("@id", id);
-                    // Ejecutar la consulta
-                    int filasAfectadas = comando.ExecuteNonQuery();
 
-                    // Verificar si se actualizó correctamente
-                    if (filasAfectadas > 0)
+                    try
                     {
-                        return Ok(); // Devolver 200 OK si la actualización fue exitosa
-                    }
-                    else
+                        int filasAfectadas = comando.ExecuteNonQuery();
+
+                        // Verificar si se actualizó correctamente
+                        if (filasAfectadas > 0)
+                        {
+                            return Ok(); // Devolver 200 OK si la actualización fue exitosa
+                        }
+                        else
+                        {
+                            return NotFound(); // Devolver 404 Not Found si no se encontró el registro
+                        }
+
+                    }catch (Exception ex)
                     {
-                        return NotFound(); // Devolver 404 Not Found si no se encontró el registro
+                        return BadRequest("hubo un error en la solicitud");
                     }
                 }
             }
@@ -186,7 +200,7 @@ namespace ApiVet.Controllers
 
                             Admindpo admin = new Admindpo
                             {
-                                ID_ADMIN = vet.IDENTIFICATION_ADMIN,
+                                ID_USER = vet.IDENTIFICATION_ADMIN,
                                 NAME = Convert.ToString(reader["ADMIN_NAME"]),
                                 EMAIL = Convert.ToString(reader["ADMIN_EMAIL"])
                             };
@@ -198,8 +212,6 @@ namespace ApiVet.Controllers
                             };
                         }
                     }
-
-                    // Cierra la conexión después de usarla
                     conexion.Close();
                 }
             }
@@ -216,7 +228,7 @@ namespace ApiVet.Controllers
             // Validar el objeto vet recibido
             if (vet == null)
             {
-                return BadRequest("El objeto VetDpo recibido es nulo.");
+                return BadRequest("El objeto VetDpo recibido es nulo. "+vet);
             }
 
             // Crear la conexión y la consulta SQL con parámetros
@@ -232,21 +244,32 @@ namespace ApiVet.Controllers
                     comando.Parameters.AddWithValue("@profits", vet.PROFITS);
                     comando.Parameters.AddWithValue("@loss", vet.LOSS);
                     // Ejecutar la consulta
-                    int filasAfectadas = comando.ExecuteNonQuery();
-
-                    // Verificar si se insertó correctamente
-                    if (filasAfectadas > 0)
+                    try
                     {
-                        // Obtener el ID generado para la nueva veterinaria
-                        int nuevoId = (int)comando.LastInsertedId;
+                        int filasAfectadas = comando.ExecuteNonQuery();
+                        // Verificar si se insertó correctamente
+                        if (filasAfectadas > 0)
+                        {
+                            // Obtener el ID generado para la nueva veterinaria
+                            int nuevoId = (int)comando.LastInsertedId;
 
-                        // Devolver el ID generado y un mensaje de éxito
-                        return Ok(new { Id = nuevoId, Message = "Veterinaria insertada correctamente." });
+                            // Devolver el ID generado y un mensaje de éxito
+                            return Ok(new { Id = nuevoId, Message = "Veterinaria insertada correctamente." });
+                        }
+                        else
+                        {
+                            return BadRequest("No se pudo insertar la veterinaria.");
+                        }
+
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        return BadRequest("No se pudo insertar la veterinaria.");
+                        return BadRequest("Error al insetar Vet. "+ex);
+
                     }
+
+
+                    
                 }
             }
         }
