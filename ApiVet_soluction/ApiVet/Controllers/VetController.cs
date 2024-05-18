@@ -264,7 +264,7 @@ namespace ApiVet.Controllers
                     }
                     catch (Exception ex)
                     {
-                        return BadRequest("Error al insetar Vet. "+ex);
+                        return BadRequest("Error al insetar Vet. "+ex.Message);
 
                     }
 
