@@ -7,4 +7,6 @@ namespace ApiVet.Models
         public VetDpo Vet { get; set; }
         public Admindpo Admin { get; set; }
     }
+
+    
 }
