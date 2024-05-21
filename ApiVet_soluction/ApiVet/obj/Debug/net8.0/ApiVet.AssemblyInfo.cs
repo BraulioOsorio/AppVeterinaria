@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApiVet")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8472572337cdde9c76dd19334bbe75c08648afc5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80317f318ccfbf83f351cd749bb63dfa1c7afaf6")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApiVet")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApiVet")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

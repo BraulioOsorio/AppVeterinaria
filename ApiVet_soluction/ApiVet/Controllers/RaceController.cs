@@ -1,10 +1,6 @@
 ﻿using ApiVet.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 using MySql.Data.MySqlClient;
-using Mysqlx.Crud;
-using System.Collections.Generic;
-using ZstdSharp.Unsafe;
 
 namespace ApiVet.Controllers
 {

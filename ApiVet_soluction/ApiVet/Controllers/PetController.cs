@@ -32,7 +32,7 @@ namespace ApiVet.Controllers
                             PetInfoDto pt = new PetInfoDto
                             {
                                 ID_PET = Convert.ToInt32(reader["ID_PET"]),
-                                VET_NAME = Convert.ToString(reader["ADDRESS"]),
+                                VET_NAME = Convert.ToString(reader["NAME_VET"]),
                                 IDENTIFICATION_PET = Convert.ToInt32(reader["IDENTIFICATION_PET"]),
                                 RACE_NAME = Convert.ToString(reader["RACE"]),
                                 NAME_PET = Convert.ToString(reader["NAME_PET"]),
@@ -116,10 +116,7 @@ namespace ApiVet.Controllers
                         if (filasAfectadas > 0)
                         {
                             int nuevoId = (int)comando.LastInsertedId;
-
-                            // Devolver el ID generado y un mensaje de éxito
                             return Ok(new { Id = nuevoId, Message = "Pet insertada correctamente." });
-
                         }
                         else
                         {
@@ -191,7 +188,7 @@ namespace ApiVet.Controllers
                             pet = new PetInfoDto
                             {
                                 ID_PET = Convert.ToInt32(reader["ID_PET"]),
-                                VET_NAME = Convert.ToString(reader["ADDRESS"]),
+                                VET_NAME = Convert.ToString(reader["NAME_VET"]),
                                 IDENTIFICATION_PET = Convert.ToInt32(reader["IDENTIFICATION_PET"]),
                                 RACE_NAME = Convert.ToString(reader["RACE"]),
                                 NAME_PET = Convert.ToString(reader["NAME_PET"]),
