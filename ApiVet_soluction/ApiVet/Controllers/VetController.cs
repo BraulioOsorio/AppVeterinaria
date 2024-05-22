@@ -29,11 +29,8 @@ namespace ApiVet.Controllers
                             VetDpo vet = new VetDpo
                             {
                                 ID_VET = Convert.ToInt32(reader["ID_VET"]),
-                                IDENTIFICATION_ADMIN = Convert.ToInt32(reader["IDENTIFICATION_ADMIN"]),
                                 NAME_VET = Convert.ToString(reader["NAME_VET"]),
                                 ADDRESS = Convert.ToString(reader["ADDRESS"]),
-                                PROFITS = Convert.ToDecimal(reader["PROFITS"]),
-                                LOSS = Convert.ToDecimal(reader["LOSS"]),
                                 STATE = Convert.ToString(reader["STATE"])
                             };
                             vets.Add(vet);
@@ -63,11 +60,8 @@ namespace ApiVet.Controllers
                             vet = new VetDpo
                             {
                                 ID_VET = Convert.ToInt32(reader["ID_VET"]),
-                                IDENTIFICATION_ADMIN = Convert.ToInt32(reader["IDENTIFICATION_ADMIN"]),
                                 NAME_VET = Convert.ToString(reader["NAME_VET"]),
                                 ADDRESS = Convert.ToString(reader["ADDRESS"]),
-                                PROFITS = Convert.ToDecimal(reader["PROFITS"]),
-                                LOSS = Convert.ToDecimal(reader["LOSS"]),
                                 STATE = Convert.ToString(reader["STATE"])
                             };
                         }
@@ -83,10 +77,9 @@ namespace ApiVet.Controllers
         {
             using (MySqlConnection conexion = MConexion.GetConexionDb())
             {
-                string consulta = "UPDATE VET SET IDENTIFICATION_ADMIN = @identificationAdmin,NAME_VET, ADDRESS = @address, WHERE ID_VET = @id";
+                string consulta = "UPDATE VET SET  NAME_VET, ADDRESS = @address, WHERE ID_VET = @id";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
-                    comando.Parameters.AddWithValue("@identificationAdmin", vetDpo.IDENTIFICATION_ADMIN);
                     comando.Parameters.AddWithValue("@address", vetDpo.ADDRESS);
                     comando.Parameters.AddWithValue("@id", id);
 
@@ -150,7 +143,7 @@ namespace ApiVet.Controllers
             using (MySqlConnection conexion = MConexion.GetConexionDb())
             {
                 string consulta = @"SELECT v.*, u.* FROM VET v
-                           INNER JOIN USER u ON v.IDENTIFICATION_ADMIN = u.ID_USER
+                           INNER JOIN USER u ON u.ID_VET = V.ID_VET
                            WHERE v.ID_VET = @id";
 
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
@@ -165,8 +158,6 @@ namespace ApiVet.Controllers
                             {
                                 ID_VET = Convert.ToInt32(reader["ID_VET"]),
                                 ADDRESS = Convert.ToString(reader["ADDRESS"]),
-                                PROFITS = Convert.ToDecimal(reader["PROFITS"]),
-                                LOSS = Convert.ToDecimal(reader["LOSS"]),
                                 STATE = Convert.ToString(reader["STATE"]),
                                 NAME_VET = Convert.ToString(reader["NAME_VET"]),
                                 PHONE = Convert.ToString(reader["PHONE"]),
@@ -196,15 +187,12 @@ namespace ApiVet.Controllers
             }
             using (MySqlConnection conexion = MConexion.GetConexionDb())
             {
-                string consulta = @"INSERT INTO VET (IDENTIFICATION_ADMIN,NAME_VET, ADDRESS, PROFITS, LOSS, STATE) 
-                            VALUES (@identificationAdmin, @name ,@address, @profits, @loss,'ACTIVO')";
+                string consulta = @"INSERT INTO VET (NAME_VET, ADDRESS, STATE) 
+                            VALUES ( @name ,@address,'ACTIVO')";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
-                    comando.Parameters.AddWithValue("@identificationAdmin", vet.IDENTIFICATION_ADMIN);
                     comando.Parameters.AddWithValue("@name", vet.NAME_VET);
                     comando.Parameters.AddWithValue("@address", vet.ADDRESS);
-                    comando.Parameters.AddWithValue("@profits", vet.PROFITS);
-                    comando.Parameters.AddWithValue("@loss", vet.LOSS);
                     try
                     {
                         int filasAfectadas = comando.ExecuteNonQuery();

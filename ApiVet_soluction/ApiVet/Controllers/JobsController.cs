@@ -41,7 +41,8 @@ namespace ApiVet.Controllers
                                 RACE = Convert.ToString(reader["RACE"]),
                                 NAME_VET = Convert.ToString(reader["NAME_VET"]),
                                 ADDRESS = Convert.ToString(reader["ADDRESS"]),
-                                STATE = Convert.ToString(reader["STATE"])
+                                STATE = Convert.ToString(reader["STATE"]),
+                                STATE_MONEY = Convert.ToString(reader["STATE_MONEY"]),
                             };
                             Jobs.Add(job);
                         }
@@ -94,8 +95,8 @@ namespace ApiVet.Controllers
 
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = @"INSERT INTO JOBS (ID_VET, ID_USER, IDENTIFICATION_PET, JOB, COSTS, COST_DESCRIPTION, STATE)
-                                   VALUES (@id_vet, @id_user, @id_pet, @job, @costs,@cost_des, 'ACTIVO');";
+                string consulta = @"INSERT INTO JOBS (ID_VET, ID_USER, IDENTIFICATION_PET, JOB, COSTS, COST_DESCRIPTION, STATE,STATE_MONEY)
+                                   VALUES (@id_vet, @id_user, @id_pet, @job, @costs,@cost_des, 'ACTIVO',@money);";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
                     comando.Parameters.AddWithValue("@id_user", job.ID_USER);
@@ -104,6 +105,7 @@ namespace ApiVet.Controllers
                     comando.Parameters.AddWithValue("@job", job.JOB);
                     comando.Parameters.AddWithValue("@costs", job.COSTS);
                     comando.Parameters.AddWithValue("@cost_des", job.COST_DESCRIPTION);
+                    comando.Parameters.AddWithValue("@money", job.STATE_MONEY);
 
                     try
                     {
@@ -133,7 +135,7 @@ namespace ApiVet.Controllers
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
                 string consulta = @"UPDATE JOBS SET ID_USER = @id_user,IDENTIFICATION_PET = @id_pet,
-                                    JOB = @job,COSTS = @costs, COST_DESCRIPTION = @cost_des WHERE ID_JOBS = @id";
+                                    JOB = @job,COSTS = @costs, COST_DESCRIPTION = @cost_des,STATE_MONEY = @money WHERE ID_JOBS = @id";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
                     comando.Parameters.AddWithValue("@id_user", job.ID_USER);
@@ -141,6 +143,7 @@ namespace ApiVet.Controllers
                     comando.Parameters.AddWithValue("@job", job.JOB);
                     comando.Parameters.AddWithValue("@costs", job.COSTS);
                     comando.Parameters.AddWithValue("@cost_des", job.COST_DESCRIPTION);
+                    comando.Parameters.AddWithValue("@money", job.STATE_MONEY);
                     comando.Parameters.AddWithValue("@id", id);
 
                     try
@@ -197,7 +200,8 @@ namespace ApiVet.Controllers
                                 RACE = Convert.ToString(reader["RACE"]),
                                 NAME_VET = Convert.ToString(reader["NAME_VET"]),
                                 ADDRESS = Convert.ToString(reader["ADDRESS"]),
-                                STATE = Convert.ToString(reader["STATE"])
+                                STATE = Convert.ToString(reader["STATE"]),
+                                STATE_MONEY = Convert.ToString(reader["STATE_MONEY"])
                             };
                             job.Add(jobs);
                         }
@@ -239,7 +243,8 @@ namespace ApiVet.Controllers
                                 RACE = Convert.ToString(reader["RACE"]),
                                 NAME_VET = Convert.ToString(reader["NAME_VET"]),
                                 ADDRESS = Convert.ToString(reader["ADDRESS"]),
-                                STATE = Convert.ToString(reader["STATE"])
+                                STATE = Convert.ToString(reader["STATE"]),
+                                STATE_MONEY = Convert.ToString(reader["STATE_MONEY"])
                             };
 
                         }
@@ -283,7 +288,8 @@ namespace ApiVet.Controllers
                                 RACE = Convert.ToString(reader["RACE"]),
                                 NAME_VET = Convert.ToString(reader["NAME_VET"]),
                                 ADDRESS = Convert.ToString(reader["ADDRESS"]),
-                                STATE = Convert.ToString(reader["STATE"])
+                                STATE = Convert.ToString(reader["STATE"]),
+                                STATE_MONEY = Convert.ToString(reader["STATE_MONEY"])
                             };
                             job.Add(jobs);
                         }
@@ -293,7 +299,51 @@ namespace ApiVet.Controllers
             return job;
         }
 
-        
+        [HttpGet("StatusMoney/{id}/{state}")]
+        public IEnumerable<JobsInfo> GetJobMoney(int id, string state)
+        {
+            List<JobsInfo> job = new List<JobsInfo>();
+
+            using (MySqlConnection conexion = conexionDb.GetConexionDb())
+            {
+                string consulta = @"SELECT JOBS.*,PET.*,MANAGER.*,RACE.*,VET.* FROM JOBS
+                                    INNER JOIN PET ON JOBS.IDENTIFICATION_PET = PET.ID_PET
+                                    INNER JOIN MANAGER ON PET.ID_MANAGER = MANAGER.ID_MANAGER
+                                    INNER JOIN RACE ON PET.ID_RACE = RACE.ID_RACE
+                                    INNER JOIN VET ON PET.ID_VET = VET.ID_VET  WHERE JOBS.ID_VET = @id AND JOBS.STATE_MONEY = @state ";
+                using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@id", id);
+                    comando.Parameters.AddWithValue("@state", state);
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            JobsInfo jobs = new JobsInfo
+                            {
+                                ID_JOBS = Convert.ToInt32(reader["ID_JOBS"]),
+                                JOB = Convert.ToString(reader["JOB"]),
+                                COSTS = Convert.ToDecimal(reader["COSTS"]),
+                                COST_DESCRIPTION = Convert.ToString(reader["COST_DESCRIPTION"]),
+                                NAME_PET = Convert.ToString(reader["NAME_PET"]),
+                                FULLNAME = Convert.ToString(reader["FULLNAME"]),
+                                ADDRESS_MANAGER = Convert.ToString(reader["ADDRESS_MANAGER"]),
+                                PHONE_MANAGER = Convert.ToString(reader["PHONE_MANAGER"]),
+                                RACE = Convert.ToString(reader["RACE"]),
+                                NAME_VET = Convert.ToString(reader["NAME_VET"]),
+                                ADDRESS = Convert.ToString(reader["ADDRESS"]),
+                                STATE = Convert.ToString(reader["STATE"]),
+                                STATE_MONEY = Convert.ToString(reader["STATE_MONEY"])
+                            };
+                            job.Add(jobs);
+                        }
+                    }
+                }
+            }
+            return job;
+        }
+
+
 
     }
 }

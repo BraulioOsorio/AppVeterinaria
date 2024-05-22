@@ -71,6 +71,39 @@ namespace ApiVet.Controllers
             return race;
         }
 
+        [HttpGet("/RaceVet/{id}")]
+
+        public IEnumerable<RaceDpo> GetRacesvet(int id)
+        {
+            List<RaceDpo> races = new List<RaceDpo>();
+
+            using (MySqlConnection conexion = conexionDb.GetConexionDb())
+            {
+                string consulta = "SELECT * FROM RACE WHERE ID_VET = @id_vet";
+                using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
+                {
+
+                    comando.Parameters.AddWithValue("@id_vet", id);
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            RaceDpo race = new RaceDpo
+                            {
+                                ID_RACE = Convert.ToInt32(reader["ID_RACE"]),
+                                RACE = Convert.ToString(reader["RACE"]),
+                                ID_VET = Convert.ToInt32(reader["ID_VET"]),
+                                STATE = Convert.ToString(reader["STATE"])
+                            };
+                            races.Add(race);
+                        }
+                    }
+                }
+            }
+            return races;
+        }
+
+
         [HttpPut("{id}")]
 
         public IActionResult UpdateRace(int id ,[FromBody] RaceUpdate raceU) {

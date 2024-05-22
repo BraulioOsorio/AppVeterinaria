@@ -7,15 +7,10 @@ namespace ApiVet.Models.Dto
         public int ID_VET { get; set; }
 
         [Required]
-        public int IDENTIFICATION_ADMIN { get; set; }
-
-        [Required]
         public string NAME_VET { get; set; }
 
         [Required]
         public string ADDRESS { get; set; }
-        public decimal PROFITS { get; set; }
-        public decimal LOSS { get; set; }
         public string STATE { get; set; }
     }
     public class VetUpdate
@@ -35,8 +30,7 @@ namespace ApiVet.Models.Dto
         public int ID_VET { get; set; }
         public string NAME_VET { get; set; }
         public string ADDRESS { get; set; }
-        public decimal PROFITS { get; set; }
-        public decimal LOSS { get; set; }
+
         public string STATE { get; set; }
         public string PHONE { get; set; }
         public string NAME { get; set; }

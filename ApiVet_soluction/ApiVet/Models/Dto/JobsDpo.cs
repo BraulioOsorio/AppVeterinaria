@@ -25,6 +25,7 @@ namespace ApiVet.Models.Dto
         public string COST_DESCRIPTION { get; set; }
 
         public string STATE { get; set; }
+        public string STATE_MONEY { get; set; }
     }
 
     public class JobsUpdate
@@ -43,6 +44,8 @@ namespace ApiVet.Models.Dto
 
         [Required]
         public string COST_DESCRIPTION { get; set; }
+
+        public string STATE_MONEY { get; set; }
     }
 
     public class JobsInfo
@@ -59,5 +62,6 @@ namespace ApiVet.Models.Dto
         public string RACE { get; set;}
         public string NAME_VET { get; set;}
         public string ADDRESS { get; set;}
+        public string STATE_MONEY { get; set; }
     }
 }

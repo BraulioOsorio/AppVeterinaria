@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace ApiVet.Controllers
 {
@@ -31,6 +32,7 @@ namespace ApiVet.Controllers
                             {
                                 ID_USER = Convert.ToInt32(reader["ID_USER"]),
                                 IDENTIFICATION = Convert.ToString(reader["IDENTIFICATION"]),
+                                ID_VET = Convert.ToInt32(reader["ID_VET"]),
                                 PHONE = Convert.ToString(reader["PHONE"]),
                                 NAME = Convert.ToString(reader["NAME"]),
                                 LASTNAME = Convert.ToString(reader["LASTNAME"]),
@@ -67,6 +69,7 @@ namespace ApiVet.Controllers
                             {
                                 ID_USER = Convert.ToInt32(reader["ID_USER"]),
                                 IDENTIFICATION = Convert.ToString(reader["IDENTIFICATION"]),
+                                ID_VET = Convert.ToInt32(reader["ID_VET"]),
                                 PHONE = Convert.ToString(reader["PHONE"]),
                                 NAME = Convert.ToString(reader["NAME"]),
                                 LASTNAME = Convert.ToString(reader["LASTNAME"]),
@@ -80,6 +83,44 @@ namespace ApiVet.Controllers
                 }
             }
             return user;  
+        }
+
+
+        [HttpGet("vet/{id}")]
+        public IEnumerable<Admindpo> GetUservet(int id)
+        {
+            List<Admindpo> users = new List<Admindpo>();
+
+            using (MySqlConnection conexion = conexionDb.GetConexionDb())
+            {
+                string consulta = "SELECT * FROM USER WHERE ID_VET = @id";
+                using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
+                {
+
+                    comando.Parameters.AddWithValue("@id", id);
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Admindpo user = new Admindpo
+                            {
+                                ID_USER = Convert.ToInt32(reader["ID_USER"]),
+                                IDENTIFICATION = Convert.ToString(reader["IDENTIFICATION"]),
+                                ID_VET = Convert.ToInt32(reader["ID_VET"]),
+                                PHONE = Convert.ToString(reader["PHONE"]),
+                                NAME = Convert.ToString(reader["NAME"]),
+                                LASTNAME = Convert.ToString(reader["LASTNAME"]),
+                                EMAIL = Convert.ToString(reader["EMAIL"]),
+                                CARGO = Convert.ToString(reader["CARGO"]),
+                                STATE = Convert.ToString(reader["STATE"])
+                            };
+                            users.Add(user);
+                        }
+                    }
+
+                }
+            }
+            return users;
         }
 
 
@@ -159,16 +200,18 @@ namespace ApiVet.Controllers
 
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = @"INSERT INTO USER (IDENTIFICATION,PHONE,NAME,LASTNAME,EMAIL,PASS,CARGO,STATE)
-                                    VALUES (@identification,@phone,@name,@lastname,@email,@pass,@cargo,'ACTIVO') ";
+                string consulta = @"INSERT INTO USER (IDENTIFICATION,ID_VET,PHONE,NAME,LASTNAME,EMAIL,PASS,CARGO,STATE)
+                                    VALUES (@identification,@id_vet,@phone,@name,@lastname,@email,@pass,@cargo,'ACTIVO') ";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
+                    string passHas = BCrypt.Net.BCrypt.HashPassword(user.PASS);
                     comando.Parameters.AddWithValue("@identification", user.IDENTIFICATION);
+                    comando.Parameters.AddWithValue("@id_vet", user.ID_VET);
                     comando.Parameters.AddWithValue("@phone", user.PHONE);
                     comando.Parameters.AddWithValue("@name", user.NAME);
                     comando.Parameters.AddWithValue("@lastname", user.LASTNAME);
                     comando.Parameters.AddWithValue("@email", user.EMAIL);
-                    comando.Parameters.AddWithValue("@pass", user.PASS);
+                    comando.Parameters.AddWithValue("@pass", passHas);
                     comando.Parameters.AddWithValue("@cargo", user.CARGO);
 
                     try
@@ -189,7 +232,52 @@ namespace ApiVet.Controllers
             }
         }
 
-        
-       
+
+        [HttpPost("/Login")]
+        public IActionResult Login([FromBody] login login)
+        {
+            if (login == null)
+            {
+                return BadRequest("No puede enviarlo null" + login);
+            }
+            using (MySqlConnection conexion = conexionDb.GetConexionDb())
+            {
+                string consulta = @" SELECT * FROM USER WHERE EMAIL = @email ";
+                using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@email", login.EMAIL);
+                    try
+                    {
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string pass = reader["PASS"].ToString();
+                                bool verifity = BCrypt.Net.BCrypt.Verify(login.PASS, pass);
+                                if (verifity)
+                                {
+                                    return Ok(verifity);
+                                }
+                                else
+                                {
+                                    return BadRequest(false);
+                                }
+                            }
+                            else
+                            {
+                                return BadRequest("El correo no se encuentra registrado");
+                            }
+                        }   
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest("Error al crear" + ex.Message);
+                    }
+                }
+            }
+        }
+
+
+
     }
 }

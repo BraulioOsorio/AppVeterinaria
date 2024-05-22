@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "DRpIEy+MBovHksMEkG/jq7gUB2l4ucgn6WoetJ0lZHWy8yTm/RlNYz61LK7eq1uxVjHK7uoGuKqRbLSXXQ9oMw==",
+  "dgSpecHash": "XKKgFaQgYVm06eJ0Wn0cHF+vsUHrwVFNG842o8KrihFajMwKZgYqachNMYyYockUQm0CL/6bxC6JJZ/Nnn+QFA==",
   "success": true,
   "projectFilePath": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\ApiVet.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\BB9263\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\BB9263\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\BB9263\\.nuget\\packages\\google.protobuf\\3.25.1\\google.protobuf.3.25.1.nupkg.sha512",
     "C:\\Users\\BB9263\\.nuget\\packages\\k4os.compression.lz4\\1.3.5\\k4os.compression.lz4.1.3.5.nupkg.sha512",

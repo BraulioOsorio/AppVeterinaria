@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace ApiVet.Models.Dto
 {
@@ -11,7 +12,8 @@ namespace ApiVet.Models.Dto
         public string IDENTIFICATION { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        public int ID_VET { get; set; }
+
         public string PHONE { get; set; }
 
         [Required]
@@ -54,6 +56,16 @@ namespace ApiVet.Models.Dto
         [Required]
         [EmailAddress]
         public string EMAIL { get; set; }
+
+    }
+    public class login
+    {
+        [EmailAddress]
+        [Required]
+        public string EMAIL { get; set; }
+
+        [Required]
+        public string PASS { get; set; }
 
     }
 }
