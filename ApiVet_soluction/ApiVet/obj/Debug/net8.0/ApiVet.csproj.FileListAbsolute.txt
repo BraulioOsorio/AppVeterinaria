@@ -111,3 +111,4 @@ C:\Users\BB9263\Desktop\AppVeterinaria\ApiVet_soluction\ApiVet\bin\Debug\net8.0\
 C:\Users\BB9263\Desktop\AppVeterinaria\ApiVet_soluction\ApiVet\bin\Debug\net8.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\BB9263\Desktop\AppVeterinaria\ApiVet_soluction\ApiVet\bin\Debug\net8.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\BB9263\Desktop\AppVeterinaria\ApiVet_soluction\ApiVet\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Proyectos\Veterinaria\ApiVet_soluction\ApiVet\bin\Debug\net8.0\BCrypt.Net-Next.dll

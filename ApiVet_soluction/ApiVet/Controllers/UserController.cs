@@ -63,7 +63,7 @@ namespace ApiVet.Controllers
                     comando.Parameters.AddWithValue("@id", id);
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {
-                        if (reader.Read())
+                        while (reader.Read())
                         {
                             user = new Admindpo
                             {
@@ -100,7 +100,7 @@ namespace ApiVet.Controllers
                     comando.Parameters.AddWithValue("@id", id);
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {
-                        if (reader.Read())
+                        while (reader.Read())
                         {
                             Admindpo user = new Admindpo
                             {
