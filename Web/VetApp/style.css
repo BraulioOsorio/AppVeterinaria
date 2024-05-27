@@ -3343,6 +3343,14 @@ table.projects tr td:first-child {
     transition: ease all 0.5s;
 }
 
+.formularioM{
+border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #ddd 2px;
+
+}
+
 .login_form form .field input:hover,
 .login_form form .field input:focus {
     box-shadow: none;

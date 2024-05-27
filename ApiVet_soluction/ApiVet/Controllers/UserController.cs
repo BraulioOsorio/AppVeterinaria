@@ -50,16 +50,17 @@ namespace ApiVet.Controllers
             
         }
 
-        [HttpGet("{id}")]
-        public Admindpo GetUser(int id)
+        [HttpGet("{id}/{idvet}")]
+        public Admindpo GetUser(int id,int idvet)
         {
             Admindpo user = null;
 
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = "SELECT * FROM USER WHERE ID_USER = @id OR IDENTIFICATION = @id";
+                string consulta = "SELECT * FROM USER WHERE ID_USER = @id OR IDENTIFICATION = @id AND ID_VET = @id_vet";
                 using(MySqlCommand comando = new MySqlCommand(consulta, conexion)) {
 
+                    comando.Parameters.AddWithValue("@id_vet", idvet);
                     comando.Parameters.AddWithValue("@id", id);
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {

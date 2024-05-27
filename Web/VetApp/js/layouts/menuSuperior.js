@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return response.text();
       })
-      .then(menuHTML => {
+      .then(menuSHTML => {
         // Inserta el contenido del menú en el elemento con el id 'menu'
-        document.getElementById('menuS').innerHTML = menuHTML;
+        document.getElementById('menuS').innerHTML = menuSHTML;
       })
       .catch(error => {
         console.error(error);

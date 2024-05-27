@@ -1,1 +1,1 @@
-sessionStorage.setItem('ruta',"https://localhost:7256/")
+sessionStorage.setItem('ruta',"https://localhost:7256/");

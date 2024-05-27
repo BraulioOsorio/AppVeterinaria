@@ -10,8 +10,8 @@ builder.Services.AddSwaggerGen();
 // Configurar servicios CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost",
-        builder => builder.WithOrigins("http://127.0.0.1:5500") // Reemplaza con la URL desde la que Live Server sirve tu frontend
+    options.AddPolicy("AllowAnyOrigin",
+        builder => builder.AllowAnyOrigin() // Reemplaza con la URL desde la que Live Server sirve tu frontend
                            .AllowAnyMethod()
                            .AllowAnyHeader());
 });
@@ -30,7 +30,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 // Aplica la política CORS
-app.UseCors("AllowLocalhost");
+app.UseCors("AllowAnyOrigin");
 
 app.UseAuthorization();
 
