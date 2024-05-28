@@ -49,7 +49,9 @@ const inicio = async(data) =>{
     };
 
     let endpoing = ruta+"Login";
+    console.log(endpoing);
     const consulta = await fetch(endpoing,config);
+    console.log(consulta)
     let response = await consulta.json()
     if (consulta.ok) {
         

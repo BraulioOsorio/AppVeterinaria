@@ -156,6 +156,7 @@ const insertUser = async(data) =>{
     const consulta = await fetch(endpoing,config);
     if (consulta.ok) {
         form_action.hidden = true;
+        loadingInsert.hidden = false;
         fromInser.reset()
         getUsers();
         mensajes("creado con exito","success")
@@ -220,6 +221,8 @@ const EditUser = async(data) =>{
     const consulta = await fetch(endpoing,config);
     if (consulta.ok) {
         form_action_edit.hidden = true;
+        loadingEditar.hidden = true;
+        botonesEditar.hidden = false;
         FormEdit.reset()
         getUsers();
         mensajes("Editado con exito","success")

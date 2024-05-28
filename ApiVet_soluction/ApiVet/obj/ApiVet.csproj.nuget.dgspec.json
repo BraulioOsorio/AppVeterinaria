@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\ApiVet.csproj": {}
+    "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\ApiVet.csproj": {}
   },
   "projects": {
-    "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\ApiVet.csproj": {
+    "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\ApiVet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\ApiVet.csproj",
+        "projectUniqueName": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\ApiVet.csproj",
         "projectName": "ApiVet",
-        "projectPath": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\ApiVet.csproj",
-        "packagesPath": "C:\\Users\\BB9263\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\BB9263\\Desktop\\AppVeterinaria\\ApiVet_soluction\\ApiVet\\obj\\",
+        "projectPath": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\ApiVet.csproj",
+        "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
+        "outputPath": "C:\\Proyectos\\Veterinaria\\ApiVet_soluction\\ApiVet\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\BB9263\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
