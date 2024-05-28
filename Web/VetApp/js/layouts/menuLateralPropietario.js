@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Utiliza fetch para cargar el contenido del menú
-    fetch('menuLateral.html')
+    fetch('menuLateralPropietario.html')
       .then(response => {
         if (!response.ok) {
           throw new Error('Error al cargar el menú');

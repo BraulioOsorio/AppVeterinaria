@@ -159,16 +159,17 @@ namespace ApiVet.Controllers
         
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/{idvet}")]
 
-        public IActionResult deleteUser(int id) 
+        public IActionResult deleteUser(int id,int idvet) 
         {
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = "UPDATE USER SET STATE = IF(STATE = 'ACTIVO','INACTIVO','ACTIVO') WHERE ID_USER = @id";
+                string consulta = "UPDATE USER SET STATE = IF(STATE = 'ACTIVO','INACTIVO','ACTIVO') WHERE ID_USER = @id OR IDENTIFICATION = @id AND ID_VET = @idvet";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
                     comando.Parameters.AddWithValue("@id", id);
+                    comando.Parameters.AddWithValue("@idvet", idvet);
                     try
                     {
                         int filasAfectadas = comando.ExecuteNonQuery();
@@ -235,7 +236,7 @@ namespace ApiVet.Controllers
 
 
         [HttpPost("/Login")]
-        public IActionResult Login([FromBody] login login)
+        public  IActionResult Login([FromBody] login login)
         {
             if (login == null)
             {
@@ -257,16 +258,16 @@ namespace ApiVet.Controllers
                                 bool verifity = BCrypt.Net.BCrypt.Verify(login.PASS, pass);
                                 if (verifity)
                                 {
-                                    return Ok(verifity);
+                                    return Ok(new { status = true, rol = reader["CARGO"], vet = reader["ID_VET"] });
                                 }
                                 else
                                 {
-                                    return BadRequest(false);
+                                    return NotFound(new { status = false, message = "Verifique sus datos." });
                                 }
                             }
                             else
                             {
-                                return BadRequest("El correo no se encuentra registrado");
+                                return NotFound(new { status = false, message = "Email no encontrado." });
                             }
                         }   
                     }

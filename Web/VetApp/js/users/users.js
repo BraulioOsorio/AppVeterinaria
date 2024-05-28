@@ -1,17 +1,42 @@
 let ruta = sessionStorage.getItem("ruta");
-// sessionStorage.setItem('ID_VET',vet);
-console.log(ruta);
+let vet = sessionStorage.getItem('vet');
 let contenidolista = null;
 let fromInser = document.getElementById("InsertUser");
 let btn_add = document.getElementById('btn_add');
+let CancelarE = document.getElementById('CancelarEdit');
+let CancelarI = document.getElementById('CancelarInsert');
+let botonesEditar = document.getElementById("botonesEditar");
+let loadingEditar = document.getElementById("loadingEditar");
+let FormEdit = document.getElementById("editUser");
+let Formdelete = document.getElementById("eliminarUser");
 let btn_delete = document.getElementById('btn_delete');
 let form_action = document.getElementById('form_action');
-console.log(fromInser);
+let form_action_edit = document.getElementById('form_action_edit');
+let botonesInsert = document.getElementById("botonesInsert");
+let loadingInsert = document.getElementById("loadingInsert");
+
+const modal = new bootstrap.Modal('#staticBackdrop', {
+    keyboard: false
+  })
 form_action.hidden = true;
+form_action_edit.hidden = true;
+loadingEditar.hidden = true;
+loadingInsert.hidden = true;
 
 btn_add.addEventListener('click',() =>{
     form_action.hidden = false;
 });
+
+CancelarEdit.addEventListener('click',() =>{
+    form_action_edit.hidden = true;
+    form_action_edit.reset()
+});
+
+CancelarInsert.addEventListener('click',() =>{
+    form_action.hidden = true;
+    form_action.reset()
+});
+
 window.onload = function(){
     contenidolista = document.getElementById("listUsers");
     getUsers();
@@ -42,6 +67,16 @@ fromInser.addEventListener('submit', (e) =>{
     let data = new FormData(fromInser);
     insertUser(data);
 });
+Formdelete.addEventListener('submit', (e) =>{
+    e.preventDefault();
+    let data = new FormData(Formdelete);
+    deleteUser(data);
+});
+FormEdit.addEventListener('submit', (e) =>{
+    e.preventDefault();
+    let data = new FormData(FormEdit);
+    EditUser(data);
+});
 
 const getUsers = async() =>{
     let headers = new Headers({
@@ -53,7 +88,7 @@ const getUsers = async() =>{
         method:'GET',
         headers:headers
     };
-    let vet = 1;
+    
     
 
     let endpoing = ruta+"api/User/vet/"+vet;
@@ -61,7 +96,6 @@ const getUsers = async() =>{
     if(consulta.ok){
 
         const response = await consulta.json();
-        console.log(response);
         contenidolista.innerHTML = "";
 
         for (var i = 0; i < response.length; i++) {
@@ -76,7 +110,7 @@ const getUsers = async() =>{
                     <td>${response[i].cargo}</td>
                     <td>${response[i].state}</td>
                     <td>
-                        <a onclick="editar(${response[i].iD_USER})" href="dashboard.html"><i class="fa fa-edit text-black"></i></a>
+                        <a href="#content" onclick="editar(${response[i].iD_USER})"><i class="fa fa-edit text-black"></i></a>
 
                     </td>
                 </tr>
@@ -86,22 +120,23 @@ const getUsers = async() =>{
         }
         
     }else{
-        const response = await consulta.json();
-        console.log(response+"error");
+        mensajes("Hubo un error","error")
     }
     
 }
+
 const insertUser = async(data) =>{
+    botonesInsert.hidden = true;
+    loadingInsert.hidden = false;
     let headers = new Headers({
         "accept": "*/*",
         "Content-Type": "application/json"
     });
-    console.log(data);
 
     let bodyJ = {
         "iD_USER": 0,
         "identification": data.get("identification"),
-        "iD_VET": 1,
+        "iD_VET": vet,
         "phone": data.get("phone"),
         "name": data.get("name"),
         "lastname": data.get("apellido"),
@@ -111,8 +146,6 @@ const insertUser = async(data) =>{
         "state": "string"
         
     };
-    // JSON.stringify(bodyJ)
-    console.log(bodyJ)
     const config ={
         method:'POST',
         headers:headers,
@@ -127,29 +160,96 @@ const insertUser = async(data) =>{
         getUsers();
         mensajes("creado con exito","success")
     }else{
-        console.log("error al crear un usuario de tipo camellador");
-    }
+        botonesInsert.hidden = true;
+        loadingInsert.hidden = false;
+        mensajes("Hubo un error","error")    }
 }
-const editar = (id) => {
-    // Aquí puedes obtener los datos del usuario con el id dado
-    // y luego setear los valores en los campos del formulario
-    let user = {
-        "identification": "123456",
-        "phone": "987654321",
-        "name": "John",
-        "lastname": "Doe",
-        "email": "john.doe@example.com",
-        "pass": "password123"
+const editar = async(id) => {
+    let headers = new Headers({
+        "accept": "*/*",
+        "Content-Type": "application/json"
+    });
+    const config ={
+        method:'GET',
+        headers:headers
     };
 
-    document.getElementById("identification").value = user.identification;
-    document.getElementById("phone").value = user.phone;
-    document.getElementById("name").value = user.name;
-    document.getElementById("lastname").value = user.lastname;
-    document.getElementById("email").value = user.email;
-    document.getElementById("pass").value = user.pass;
+    let endpoing = ruta+"api/User/"+id+"/"+vet;
+    const consulta = await fetch(endpoing,config);
+    if(consulta.ok){
 
-    form_action.hidden = false;
+        const response = await consulta.json();
+        
+        document.getElementById("phone").value = response.phone;
+        document.getElementById("name").value = response.name;
+        document.getElementById("lastname").value = response.lastname;
+        document.getElementById("email").value = response.email;
+        document.getElementById("id").value = response.iD_USER;
+        
+    }else{
+        const response = await consulta.json();
+        console.log(response+"error");
+    }
+
+    form_action_edit.hidden = false;
 }
 
+const EditUser = async(data) =>{
+    botonesEditar.hidden = true;
+    loadingEditar.hidden = false;
+    let headers = new Headers({
+        "accept": "*/*",
+        "Content-Type": "application/json"
+    });
+
+    let bodyJ = {
+        "phone": data.get("phone"),
+        "name": data.get("name"),
+        "lastname": data.get("lastname"),
+        "email": data.get("email")
+        
+    };
+    let idUser = data.get("id");
+    const config ={
+        method:'PUT',
+        headers:headers,
+        body : JSON.stringify(bodyJ)
+    };
+
+    let endpoing = ruta+"api/User/"+idUser;
+    const consulta = await fetch(endpoing,config);
+    if (consulta.ok) {
+        form_action_edit.hidden = true;
+        FormEdit.reset()
+        getUsers();
+        mensajes("Editado con exito","success")
+    }else{
+        botonesEditar.hidden = false;
+        loadingEditar.hidden = true;
+        mensajes("Hubo un error","error")
+    }
+}
+
+const deleteUser = async(data) =>{
+    let headers = new Headers({
+        "accept": "*/*",
+        "Content-Type": "application/json"
+    });
+    let idUser = data.get("identification");
+    const config ={
+        method:'DELETE',
+        headers:headers,
+    };
+
+    let endpoing = ruta+"api/User/"+idUser+"/"+vet;
+    const consulta = await fetch(endpoing,config);
+    if (consulta.ok) {
+        Formdelete.reset()
+        getUsers();
+        mensajes("Cambiado con exito","success")
+        modal.hide();
+    }else{
+        mensajes("Hubo un error","error")
+    }
+}
 

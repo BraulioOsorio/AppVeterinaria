@@ -35,8 +35,8 @@
       <link rel="stylesheet" href="css/jquery.fancybox.css" />
 
       <script src="js/users/users.js" defer></script>
-      <script src="js/layouts/menuLateral.js"></script>
-      <script src="js/layouts/menuSuperior.js"></script>
+      <script src="js/layouts/menuLateralAdmin.js"></script>
+      <script src="js/layouts/menuSuperiorAdmin.js"></script>
       <!--[if lt IE 9]>
          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -79,8 +79,9 @@
                         </div>
                         <div class="col-2">
                            <div >
-                              <button type="button" id="btn_delete" class="btn cur-p btn-outline-danger text-black"><i class=" fa fa-trash text-black"></i> Eliminar</button>
+                              <button type="button" id="btn_delete" class="btn cur-p btn-outline-danger text-black" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class=" fa fa-trash text-black"></i> Cambiar Estado</button>
                            </div>
+                           
                         </div>
                         
 
@@ -88,12 +89,12 @@
                      <!-- row -->
 
                      <!-- Formulario depende la accion -->
-                     <div class="row" id="form_action">
-                        <div class="col-12">
+                     <div class="row">
+                        <div class="col-12"  id="form_action">
                            <div class="white_shd full margin_bottom_30"> 
                               <div class="full graph_head">
                                  <div class="heading1 margin_0"> 
-                                    <h2>Agregar Tranajador </h2>
+                                    <h2>Agregar Trabajador </h2>
 
                                  </div>
                               </div>
@@ -126,19 +127,74 @@
                                     <div class="col-4">
                                        <label  class="form-label">Contraseña</label>
                                        <div class="input-group">
-                                         <input type="password" class="form-control formularioM" name="pass" required>
+                                         <input type="password" class="form-control formularioM"  name="pass" required>
                                        </div>
                                      </div>
-                                    
-                                    
-                                    <div class="col-12 text-center">
-                                      <button type="submit" class="btn cur-p btn-outline-success text-black">Agregar</button>
+                                     <div class="col-12 text-center" id="loadingInsert">
+                                       <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
+                                    </div>
+                                    <div  class="row mt-3" id="botonesInsert">
+                                       <div class="col-6 text-center">
+                                         <button type="submit" class="btn cur-p btn-outline-success text-black">Agregar</button>
+                                       </div>
+                                       <div class="col-6 text-center">
+                                        <button type="button" class="btn cur-p btn-outline-danger text-black" id="CancelarInsert">Cancelar</button>
+                                      </div>
+
                                     </div>
                                   </form>
                               </div>
 
                            </div>
                         </div>
+                           <div class="col-12" id="form_action_edit">
+                              <div class="white_shd full margin_bottom_30"> 
+                                 <div class="full graph_head">
+                                    <div class="heading1 margin_0"> 
+                                       <h2>Editar Trabajador </h2>
+                                    </div>
+                                 </div>
+                                 <div class="full graph_head">
+                                    <form class="row g-3" id="editUser" method="post">
+                                       <div class="col-6">
+                                          <label class="form-label">Nombre</label>
+                                          <input type="text" class="form-control formularioM"  id="name" name="name" required>
+                                       </div>
+                                       <div class="col-6">
+                                          <label  class="form-label">Apellido</label>
+                                          <input type="text" class="form-control formularioM" id="lastname" name="lastname" required>
+                                       </div>
+                                       
+                                       <div class="col-6">
+                                          <label  class="form-label">Celular</label>
+                                          <div class="input-group">
+                                             <input type="number" class="form-control formularioM" id="phone" name="phone" required>
+                                          </div>
+                                       </div>
+                                       
+                                       <div class="col-6">
+                                         <label  class="form-label">Correo Electronico</label>
+                                         <input type="email" class="form-control formularioM" id="email" name="email" required>
+                                       </div>
+                                       <input type="hidden" class="form-control formularioM" id="id" name="id">
+                                       <div class="col-12 text-center" id="loadingEditar">
+                                          <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
+                                       </div>
+                                       <div  class="row mt-3" id="botonesEditar">
+                                          <div class="col-6 text-center">
+                                             <button type="submit" class="btn cur-p btn-outline-success text-black">Editar</button>
+                                           </div>
+                                           <div class="col-6 text-center">
+                                              <button type="button" class="btn cur-p btn-outline-danger text-black" id="CancelarEdit">Cancelar</button>
+                                            </div>
+                                       </div>
+                                     </form>
+                                 </div>
+   
+                              </div>
+                           </div>
+                           
+                        
                      </div>
                      <div class="row">
                         <div class="col-12">
@@ -173,6 +229,7 @@
 
                      </div>
                   </div>
+                  
                   <!-- footer -->
                   <div class="container-fluid">
                      <div class="footer">
@@ -185,6 +242,38 @@
          </div>
          
       </div>
+      <!-- Button trigger modal -->
+ 
+         <!-- Modal -->
+         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Trabajador </h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+                  <form class="row g-3" id="eliminarUser" method="post">
+                     <div class="col-12">
+                       <label class="form-label">Cedula Trabajador</label>
+                       <input type="int" class="form-control formularioM"  id="identification" name="identification" required>
+                     </div>
+                     <div class="col-12 text-center">
+                       <button type="submit" class="btn cur-p btn-outline-danger text-black">Cambiar Estado</button>
+                     </div>
+                   </form>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+               </div>
+            </div>
+            </div>
+         </div>
+      <!-- Button trigger modal -->
+      
+      
+      <!-- Modal -->
+      
       <!-- jQuery -->
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
@@ -214,5 +303,7 @@
       <script src="js/config/config.js"></script>
       <script src="js/semantic.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
    </body>
 </html>
