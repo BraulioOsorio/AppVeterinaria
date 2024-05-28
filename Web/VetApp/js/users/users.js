@@ -130,5 +130,26 @@ const insertUser = async(data) =>{
         console.log("error al crear un usuario de tipo camellador");
     }
 }
+const editar = (id) => {
+    // Aquí puedes obtener los datos del usuario con el id dado
+    // y luego setear los valores en los campos del formulario
+    let user = {
+        "identification": "123456",
+        "phone": "987654321",
+        "name": "John",
+        "lastname": "Doe",
+        "email": "john.doe@example.com",
+        "pass": "password123"
+    };
+
+    document.getElementById("identification").value = user.identification;
+    document.getElementById("phone").value = user.phone;
+    document.getElementById("name").value = user.name;
+    document.getElementById("lastname").value = user.lastname;
+    document.getElementById("email").value = user.email;
+    document.getElementById("pass").value = user.pass;
+
+    form_action.hidden = false;
+}
 
 
