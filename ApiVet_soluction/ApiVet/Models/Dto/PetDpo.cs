@@ -68,6 +68,7 @@ namespace ApiVet.Models.Dto
         public string RACE_NAME { get; set; }
         public string MANAGER_NAME { get; set; }
         public string MANAGER_PHONE { get; set; }
+        public int ID_MANAGER { get; set; }
         public string COLOR { get; set; }
         public string SIZE { get; set; }
         public string AGE { get; set; }

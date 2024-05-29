@@ -38,6 +38,7 @@ namespace ApiVet.Controllers
                                 NAME_PET = Convert.ToString(reader["NAME_PET"]),
                                 MANAGER_NAME = Convert.ToString(reader["FULLNAME"]),
                                 MANAGER_PHONE = Convert.ToString(reader["PHONE_MANAGER"]),
+                                ID_MANAGER = Convert.ToInt32(reader["ID_MANAGER"]),
                                 COLOR = Convert.ToString(reader["COLOR"]),
                                 SIZE = Convert.ToString(reader["SIZE"]),
                                 AGE = Convert.ToString(reader["AGE"]),
@@ -81,6 +82,7 @@ namespace ApiVet.Controllers
                                 NAME_PET = Convert.ToString(reader["NAME_PET"]),
                                 MANAGER_NAME = Convert.ToString(reader["FULLNAME"]),
                                 MANAGER_PHONE = Convert.ToString(reader["PHONE_MANAGER"]),
+                                ID_MANAGER = Convert.ToInt32(reader["ID_MANAGER"]),
                                 COLOR = Convert.ToString(reader["COLOR"]),
                                 SIZE = Convert.ToString(reader["SIZE"]),
                                 AGE = Convert.ToString(reader["AGE"]),
@@ -211,8 +213,8 @@ namespace ApiVet.Controllers
             }
         }
 
-        [HttpGet("One/{id}")]
-        public PetInfoDto GetPetDpo(int id)
+        [HttpGet("One/{id}/{id_vet}")]
+        public PetInfoDto GetPetDpo(int id,int id_vet)
         {
             PetInfoDto pet = null;
 
@@ -220,10 +222,11 @@ namespace ApiVet.Controllers
             {
                 string consulta = @"SELECT PET.*, VET.*, RACE.*,MANAGER.* FROM PET
                                 INNER JOIN VET ON PET.ID_VET = VET.ID_VET INNER JOIN RACE ON PET.ID_RACE = RACE.ID_RACE
-                                INNER JOIN MANAGER ON PET.ID_MANAGER = MANAGER.ID_MANAGER WHERE PET.ID_PET = @id;";
+                                INNER JOIN MANAGER ON PET.ID_MANAGER = MANAGER.ID_MANAGER WHERE PET.ID_PET = @id AND PET.ID_VET = @id_vet";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
                     comando.Parameters.AddWithValue("@id", id);
+                    comando.Parameters.AddWithValue("@id_vet", id_vet);
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {
                         while (reader.Read())
@@ -237,6 +240,8 @@ namespace ApiVet.Controllers
                                 NAME_PET = Convert.ToString(reader["NAME_PET"]),
                                 MANAGER_NAME = Convert.ToString(reader["FULLNAME"]),
                                 MANAGER_PHONE = Convert.ToString(reader["PHONE_MANAGER"]),
+                                ID_MANAGER = Convert.ToInt32(reader["ID_MANAGER"]),
+
                                 COLOR = Convert.ToString(reader["COLOR"]),
                                 SIZE = Convert.ToString(reader["SIZE"]),
                                 AGE = Convert.ToString(reader["AGE"]),

@@ -33,8 +33,10 @@
       <link rel="stylesheet" href="js/semantic.min.css" />
       <!-- fancy box js -->
       <link rel="stylesheet" href="css/jquery.fancybox.css" />
+      
       <script src="js/layouts/menuLateralPropietario.js"></script>
-      <script src="js/layouts/menuSuperiorAdmin copy.js"></script>
+      <script src="js/layouts/menuSuperiorPropietario.js"></script>
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
       <!--[if lt IE 9]>
          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -85,6 +87,165 @@
 
                      </div>
                   </div>
+
+                  <div class="row">
+                     <div class="col-12"  id="form_action" hidden>
+                        <div class="white_shd full margin_bottom_30"> 
+                           <div class="full graph_head">
+                              <div class="heading1 margin_0"> 
+                                 <h2>Agregar Mascota</h2>
+                              </div>
+                           </div>
+                           <div class="full graph_head">
+                              <form class="row g-3" id="InserPets" method="post">
+                                 <div class="col-4">
+                                   <label class="form-label">Nombre</label>
+                                   <input type="text" class="form-control formularioM" name="name" required>
+                                 </div>
+                                 <div class="col-4">
+                                    <label  class="form-label">Idenficacion</label>                    
+                                    <input type="number" class="form-control formularioM" name="identification" required>
+                                 </div>
+
+                                 <div class="col-4">
+                                    <label  class="form-label">Dueño</label>           
+                                    <div class="input-group">
+                                       <select id="managerSelectInsert" class="js-example-basic-single form-control " name="manager">
+                                       </select>
+                                    </div>  
+                                 </div>
+                                 <div class="col-4">
+                                    <label  class="form-label">Rasa</label>   
+                                    <div class="input-group">
+                                       <select id="RaceSelectInsert" class="js-example-basic-single form-control " name="race"></select>
+                                    </div>
+                                    
+                                 </div>
+
+                                 <div class="col-4">
+                                   <label  class="form-label">Color</label>
+                                   <input type="text" class="form-control formularioM" name="color" required>
+                                 </div>
+                                 <div class="col-4">
+                                    <label  class="form-label">Tamaño</label>
+                                    <input type="text" class="form-control formularioM" name="size" required>
+                                 </div>
+                                 <div class="col-4">
+                                    <label  class="form-label">Edad</label>
+                                    <input type="text" class="form-control formularioM" name="age" required>
+                                 </div>
+                                 <div class="col-4">
+                                    <label  class="form-label">Peso</label>
+                                    <input type="text" class="form-control formularioM" name="weight" required>
+                                 </div>
+
+
+                                 <div class="col-12 text-center" id="loadingInsert">
+                                    <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
+                                 </div>
+                                 <div  class="row mt-3" id="botonesInsert">
+                                    <div class="col-6 text-center">
+                                      <button type="submit" class="btn cur-p btn-outline-success text-black">Agregar</button>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                     <button type="button" class="btn cur-p btn-outline-danger text-black" id="CancelarInsert">Cancelar</button>
+                                   </div>
+
+                                 </div>
+                               </form>
+                           </div>
+
+                        </div>
+                     </div>
+                     <div class="col-12" id="form_action_edit" hidden>
+                        <div class="white_shd full margin_bottom_30"> 
+                           <div class="full graph_head">
+                              <div class="heading1 margin_0"> 
+                                 <h2>Editar Mascota </h2>
+                              </div>
+                           </div>
+                           <div class="full graph_head">
+                              <form class="row g-3" id="editPets" method="post">
+                                 <div class="col-6">
+                                    <label class="form-label">Nombre</label>
+                                    <input type="text" class="form-control formularioM"  id="name" name="name" required>
+                                 </div>
+                                 <div class="col-6">
+                                    <label class="form-label">Identificación</label>
+                                    <input type="text" class="form-control formularioM"  id="identification" name="identification" required>
+                                 </div>
+                                 <div class="col-4">
+                                    <label  class="form-label">Dueño</label>   
+                                    <div class="input-group">       
+                                       <select class="js-example-basic-single form-control seletForm" name="manager" id="managerSelect">
+
+                                       </select>
+                                    </div> 
+                                 </div>
+                                 
+                                 <div class="col-6">
+                                    <label  class="form-label">Tamaño</label>
+                                    <input type="text" class="form-control formularioM" id="size" name="size" required>
+                                    
+                                 </div>
+                                 <div class="col-6">
+                                    <label  class="form-label">Edad</label>
+                                    <input type="text" class="form-control formularioM" id="age" name="age" required>
+                                 </div>
+                                 <div class="col-6">
+                                    <label  class="form-label">Peso</label>
+                                    <input type="text" class="form-control formularioM" id="weight" name="weight" required>
+                                 </div>
+                                 
+                                 
+                                 <input type="hidden" class="form-control formularioM" id="id" name="id">
+                                 <div class="col-12 text-center" id="loadingEditar">
+                                    <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
+                                 </div>
+                                 <div  class="row mt-3" id="botonesEditar">
+                                    <div class="col-6 text-center">
+                                       <button type="submit" class="btn cur-p btn-outline-success text-black">Editar</button>
+                                       </div>
+                                       <div class="col-6 text-center">
+                                          <button type="button" class="btn cur-p btn-outline-danger text-black" id="CancelarEdit">Cancelar</button>
+                                       </div>
+                                 </div>
+                                 </form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-12">
+                        <div class="white_shd full margin_bottom_30">
+                           <div class="full graph_head">
+                              <div class="heading1 margin_0">
+                                 <h2>Lista de Trabajadores</h2>
+                              </div>
+                           </div>
+                           <div class="table_section padding_infor_info">
+                              <div class="table-responsive-sm text-center">
+                                 <table class="table">
+                                    <thead>
+                                       <tr>
+                                          <th>Nombre</th>
+                                          <th>Rasa</th>
+                                          <th>Dueño</th>
+                                          <th>Identificación</th>
+                                          <th>Estado</th>
+                                          <th>Editar</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody id="listPets">
+                                       
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                  </div>
                   
                   <!-- footer -->
                   <div class="container-fluid">
@@ -127,6 +288,9 @@
       <script src="js/config/config.js"></script>
       <script src="js/semantic.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="js/pets/pets.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
    </body>

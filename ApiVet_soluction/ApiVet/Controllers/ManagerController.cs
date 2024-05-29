@@ -11,14 +11,15 @@ namespace ApiVet.Controllers
         private ConexionDb conexionDb  = new ConexionDb();
 
 
-        [HttpGet]
-        public IEnumerable<ManagerDpo> Get(){
+        [HttpGet("vet/{id_vet}")]
+        public IEnumerable<ManagerDpo> Get(int id_vet){
             List<ManagerDpo> managerDpos = new List<ManagerDpo>();
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = "SELECT * FROM MANAGER";
+                string consulta = "SELECT * FROM MANAGER WHERE ID_VET = @id";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
+                    comando.Parameters.AddWithValue("@id", id_vet);
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {
                         while (reader.Read())
@@ -143,10 +144,11 @@ namespace ApiVet.Controllers
 
             using(MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = @"INSERT INTO MANAGER (ADDRESS_MANAGER,PHONE_MANAGER,FULLNAME,STATE)
-                                    VALUES (@address,@phone,@fullname,'ACTIVO')";
+                string consulta = @"INSERT INTO MANAGER (ID_VET,ADDRESS_MANAGER,PHONE_MANAGER,FULLNAME,STATE)
+                                    VALUES (@id,@address,@phone,@fullname,'ACTIVO')";
                 using(MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
+                    comando.Parameters.AddWithValue("@id", manager.ID_VET);
                     comando.Parameters.AddWithValue("@address", manager.ADDRESS_MANAGER);
                     comando.Parameters.AddWithValue("@phone", manager.PHONE_MANAGER);
                     comando.Parameters.AddWithValue("@fullname", manager.FULLNAME);

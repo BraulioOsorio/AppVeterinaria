@@ -7,6 +7,9 @@ namespace ApiVet.Models.Dto
         public int ID_MANAGER { get; set; }
 
         [Required]
+        public int ID_VET{ get; set; }
+
+        [Required]
         [MaxLength(200)]
         public string ADDRESS_MANAGER { get; set; }
 
