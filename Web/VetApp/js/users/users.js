@@ -156,7 +156,8 @@ const insertUser = async(data) =>{
     const consulta = await fetch(endpoing,config);
     if (consulta.ok) {
         form_action.hidden = true;
-        loadingInsert.hidden = false;
+        loadingInsert.hidden = true;
+        botonesInsert.hidden = false;
         fromInser.reset()
         getUsers();
         mensajes("creado con exito","success")
