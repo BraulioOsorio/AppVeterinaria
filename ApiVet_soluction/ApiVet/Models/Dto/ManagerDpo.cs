@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Org.BouncyCastle.Asn1.Cmp;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApiVet.Models.Dto
 {
@@ -15,6 +16,7 @@ namespace ApiVet.Models.Dto
 
         [Required]
         [MaxLength(200)]
+        [MinLength(8, ErrorMessage = "Verifique el telefono")]
         public string PHONE_MANAGER { get; set; }
 
         [Required]
@@ -33,6 +35,8 @@ namespace ApiVet.Models.Dto
 
         [Required]
         [MaxLength(200)]
+        [MinLength(8,ErrorMessage ="Verifique el telefono")]
+        
         public string PHONE_MANAGER { get; set; }
 
         [Required]

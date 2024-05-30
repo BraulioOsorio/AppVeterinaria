@@ -70,7 +70,7 @@
                      <div class="row column_title page_title">
                         <div class="col-8">
                            <div>
-                              <h2>Mascotas</h2>
+                              <h2>Dueños</h2>
                            </div>
                         </div>
                         <div class="col-2">
@@ -94,53 +94,24 @@
                         <div class="white_shd full margin_bottom_30"> 
                            <div class="full graph_head">
                               <div class="heading1 margin_0"> 
-                                 <h2>Agregar Mascota</h2>
+                                 <h2>Agregar Dueño</h2>
                               </div>
                            </div>
                            <div class="full graph_head">
-                              <form class="row g-3" id="InserPets" method="post">
-                                 <div class="col-4">
+                              <form class="row g-3" id="InserManager" method="post">
+                                <div class="col-4">
                                    <label class="form-label">Nombre</label>
                                    <input type="text" class="form-control formularioM" name="name" required>
                                  </div>
                                  <div class="col-4">
-                                    <label  class="form-label">Idenficacion</label>                    
-                                    <input type="number" class="form-control formularioM" name="identification" required>
+                                    <label  class="form-label">Numero de Telefono</label>                    
+                                    <input type="number" class="form-control formularioM" name="phone" required>
                                  </div>
 
                                  <div class="col-4">
-                                    <label  class="form-label">Dueño</label>           
-                                    <div class="input-group">
-                                       <select id="managerSelectInsert" class="js-example-basic-single form-control " name="manager">
-                                       </select>
-                                    </div>  
+                                   <label  class="form-label">Dirección</label>
+                                   <input type="text" class="form-control formularioM" name="direccion" required>
                                  </div>
-                                 <div class="col-4">
-                                    <label  class="form-label">Rasa</label>   
-                                    <div class="input-group">
-                                       <select id="RaceSelectInsert" class="js-example-basic-single form-control " name="race"></select>
-                                    </div>
-                                    
-                                 </div>
-
-                                 <div class="col-4">
-                                   <label  class="form-label">Color</label>
-                                   <input type="text" class="form-control formularioM" name="color" required>
-                                 </div>
-                                 <div class="col-4">
-                                    <label  class="form-label">Tamaño</label>
-                                    <input type="text" class="form-control formularioM" name="size" required>
-                                 </div>
-                                 <div class="col-4">
-                                    <label  class="form-label">Edad</label>
-                                    <input type="text" class="form-control formularioM" name="age" required>
-                                 </div>
-                                 <div class="col-4">
-                                    <label  class="form-label">Peso</label>
-                                    <input type="text" class="form-control formularioM" name="weight" required>
-                                 </div>
-
-
                                  <div class="col-12 text-center" id="loadingInsert">
                                     <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
                                  </div>
@@ -166,39 +137,21 @@
                               </div>
                            </div>
                            <div class="full graph_head">
-                              <form class="row g-3" id="editPets" method="post">
+                              <form class="row g-3" id="editManager" method="post">
                                  <div class="col-6">
                                     <label class="form-label">Nombre</label>
                                     <input type="text" class="form-control formularioM"  id="name" name="name" required>
                                  </div>
                                  <div class="col-6">
-                                    <label class="form-label">Identificación</label>
-                                    <input type="text" class="form-control formularioM"  id="identification" name="identification" required>
-                                 </div>
-                                 <div class="col-6">
-                                    <label  class="form-label">Dueño</label>   
-                                    <div class="input-group">       
-                                       <select class="js-example-basic-single form-control seletForm" name="manager" id="managerSelect">
-
-                                       </select>
-                                    </div> 
+                                    <label class="form-label">Numero de Telefono</label>
+                                    <input type="text" class="form-control formularioM"  id="phone" name="phone" required>
                                  </div>
                                  
                                  <div class="col-6">
-                                    <label  class="form-label">Tamaño</label>
-                                    <input type="text" class="form-control formularioM" id="size" name="size" required>
+                                    <label  class="form-label">Dirección</label>
+                                    <input type="text" class="form-control formularioM" id="direccion" name="direccion" required>
                                     
                                  </div>
-                                 <div class="col-6">
-                                    <label  class="form-label">Edad</label>
-                                    <input type="text" class="form-control formularioM" id="age" name="age" required>
-                                 </div>
-                                 <div class="col-6">
-                                    <label  class="form-label">Peso</label>
-                                    <input type="text" class="form-control formularioM" id="weight" name="weight" required>
-                                 </div>
-                                 
-                                 
                                  <input type="hidden" class="form-control formularioM" id="id" name="id">
                                  <div class="col-12 text-center" id="loadingEditar">
                                     <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
@@ -223,37 +176,12 @@
                               </div>
                            </div>
                            <div class="full graph_head row text-center" id="informacio">
+                              <div class="container">
+                                <div class="row" id="Cardtt"> 
+
+                                </div>
+                              </div>
                               
-                              <div class="col-6">
-                                 <label id="NombreInfo"></label>  
-                              </div>
-                              <div class="col-6">
-                                 <label id="IdentificaciónInfo"></label>
-                              </div>
-                              <div class="col-6">
-                                 <label  id="DuenoInfo"></label>   
-                              </div>
-                              <div class="col-6">
-                                 <label  id="DuenoPhoneInfo"></label>   
-                              </div>
-                              <div class="col-6">
-                                 <label  id="TamanoInfo"></label>
-                              </div>
-                              <div class="col-6">
-                                 <label  id="ColorInfo"></label>
-                              </div>
-                              <div class="col-6">
-                                 <label  id="EdadInfo"></label>
-                              </div>
-                              <div class="col-6">
-                                 <label  id="PesoInfo"></label>
-                              </div>
-                              <div class="col-6">
-                                 <label  id="RaceInfo"></label>
-                              </div>
-                              <div class="col-6">
-                                 <label id="veterinariaInfo"></label>  
-                              </div>
                               <div  class="row mt-3">
                                  <div class="col-12 text-center">
                                     <button type="button" class="btn cur-p btn-outline-danger text-black" id="CancelarInfo">Cancelar</button>
@@ -271,7 +199,7 @@
                         <div class="white_shd full margin_bottom_30">
                            <div class="full graph_head">
                               <div class="heading1 margin_0">
-                                 <h2>Lista de Mascotas</h2>
+                                 <h2>Lista de Trabajadores</h2>
                               </div>
                            </div>
                            <div class="table_section padding_infor_info">
@@ -280,15 +208,14 @@
                                     <thead>
                                        <tr>
                                           <th>Nombre</th>
-                                          <th>Rasa</th>
-                                          <th>Dueño</th>
-                                          <th>Identificación</th>
+                                          <th>Dirección</th>
+                                          <th>Telefono</th>
                                           <th>Estado</th>
-                                          <th>Info</th>
+                                          <th>Mascotas</th>
                                           <th>Editar</th>
                                        </tr>
                                     </thead>
-                                    <tbody id="listPets">
+                                    <tbody id="listManager">
                                        
                                     </tbody>
                                  </table>
@@ -315,14 +242,14 @@
          <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
-               <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Mascota </h1>
+               <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Manager </h1>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-               <form class="row g-3" id="eliminarPet" method="post">
+               <form class="row g-3" id="eliminarManager" method="post">
                   <div class="col-12">
-                    <label class="form-label">Identificacion de la mascota</label>
-                    <input type="int" class="form-control formularioM"  id="identificationP" name="identificationP" required>
+                    <label class="form-label">Telefono del Manager</label>
+                    <input type="int" class="form-control formularioM"  id="identificationM" name="identificationM" required>
                   </div>
                   <div class="col-12 text-center">
                     <button type="submit" class="btn cur-p btn-outline-danger text-black">Cambiar Estado</button>
@@ -364,7 +291,7 @@
       <script src="js/config/config.js"></script>
       <script src="js/semantic.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      <script src="js/pets/pets.js"></script>
+      <script src="js/Manager/Manager.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

@@ -99,16 +99,17 @@ namespace ApiVet.Controllers
             return pets;
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/{idVet}")]
 
-        public IActionResult DeleteVet(int id)
+        public IActionResult DeleteVet(int id, int idVet)
         {
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = "UPDATE PET SET STATE = IF (STATE = 'ACTIVO','INACTIVO','ACTIVO') WHERE ID_PET = @id";
+                string consulta = "UPDATE PET SET STATE = IF (STATE = 'ACTIVO','INACTIVO','ACTIVO') WHERE ID_PET = @id OR IDENTIFICATION_PET = @id AND ID_VET = @idvet";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
                     comando.Parameters.AddWithValue("@id", id);
+                    comando.Parameters.AddWithValue("@idvet", idVet);
 
                     try
                     {

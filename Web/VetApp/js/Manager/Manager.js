@@ -1,11 +1,13 @@
 let ruta = sessionStorage.getItem("ruta");
 let vet = sessionStorage.getItem('vet');
 let contenidolista = null;
-let fromInser = document.getElementById("InserPets");
+let fromInser = document.getElementById("InserManager");
 let form_action = document.getElementById('form_action');
 let form_action_info = document.getElementById('form_action_info');
-let FormEdit = document.getElementById("editPets");
+let FormEdit = document.getElementById("editManager");
 let informacio = document.getElementById("informacio");
+let Cardtt = document.getElementById("Cardtt");
+let Formdelete = document.getElementById("eliminarManager");
 
 let btn_add = document.getElementById('btn_add');
 let CancelarE = document.getElementById('CancelarEdit');
@@ -14,7 +16,6 @@ let CancelarI = document.getElementById('CancelarInsert');
 let botonesEditar = document.getElementById("botonesEditar");
 let loadingEditar = document.getElementById("loadingEditar");
 let loadingInfo = document.getElementById("loadingInfo");
-let Formdelete = document.getElementById("eliminarPet");
 let btn_delete = document.getElementById('btn_delete');
 let form_action_edit = document.getElementById('form_action_edit');
 let botonesInsert = document.getElementById("botonesInsert");
@@ -92,11 +93,10 @@ CancelarInfo.addEventListener('click',() =>{
     
 });
 
-contenidolista = document.getElementById("listPets");
 
 window.onload = function(){
-    contenidolista = document.getElementById("listPets");
-    getPets();
+    contenidolista = document.getElementById("listManager");
+    getManager();
 }
 
 
@@ -123,20 +123,20 @@ const mensajes = (mensaje,tipo)=>{
 fromInser.addEventListener('submit', (e) =>{
     e.preventDefault();
     let data = new FormData(fromInser);
-    InserPets(data);
+    InserManager(data);
 });
 Formdelete.addEventListener('submit', (e) =>{
     e.preventDefault();
     let data = new FormData(Formdelete);
-    deletePet(data);
+    deleteManager(data);
 });
 FormEdit.addEventListener('submit', (e) =>{
     e.preventDefault();
     let data = new FormData(FormEdit);
-    EditPets(data);
+    EditManager(data);
 });
 
-const getPets = async() =>{
+const getManager = async() =>{
     let headers = new Headers({
         "accept": "application/json",
         "Content-Type": "application/json"
@@ -149,28 +149,28 @@ const getPets = async() =>{
 
     
 
-    let endpoing = ruta+"api/Pet/vet/"+vet;
+    let endpoing = ruta+"api/Manager/vet/"+vet;
     const consulta = await fetch(endpoing,config);
     if(consulta.ok){
 
         const response = await consulta.json();
         contenidolista.innerHTML = "";
+        console.table(response)
 
         for (var i = 0; i < response.length; i++) {
             let stateClass = response[i].state === 'ACTIVO' ? 'table-success' : 'table-warning';
             
             let temp = `
                 <tr class="${stateClass}">
-                    <td>${response[i].namE_PET}</td>
-                    <td>${response[i].racE_NAME}</td>
-                    <td>${response[i].manageR_NAME}</td>
-                    <td>${response[i].identificatioN_PET}</td>
+                    <td>${response[i].fullname}</td>
+                    <td>${response[i].addresS_MANAGER}</td>
+                    <td>${response[i].phonE_MANAGER}</td>
                     <td>${response[i].state}</td>
                     <td>
-                        <a href="#content" onclick="info(${response[i].iD_PET})"><i class="fa fa-info-circle text-black"></i></a>
+                        <a href="#content" onclick="info(${response[i].iD_MANAGER})"><i class="fa-solid fa-paw  text-black"></i></a>
                     </td>
                     <td>
-                        <a href="#content" onclick="editar(${response[i].iD_PET})"><i class="fa fa-edit text-black"></i></a>
+                        <a href="#content" onclick="editar(${response[i].iD_MANAGER})"><i class="fa fa-edit text-black"></i></a>
                     </td>
                 </tr>
             `;
@@ -186,7 +186,7 @@ const getPets = async() =>{
 
 
 
-const InserPets = async(data) =>{
+const InserManager = async(data) =>{
     botonesInsert.hidden = true;
     loadingInsert.hidden = false;
 
@@ -196,16 +196,11 @@ const InserPets = async(data) =>{
     });
 
     let bodyJ = {
-        "iD_PET": 0,
+        "iD_MANAGER": 0,
         "iD_VET": vet,
-        "identificatioN_PET": data.get("identification"),
-        "namE_PET": data.get("name"),
-        "iD_MANAGER": data.get("manager"),
-        "iD_RACE": data.get("race"),
-        "color": data.get("color"),
-        "size": data.get("size"),
-        "age": data.get("age"),
-        "weight": data.get("weight"),
+        "addresS_MANAGER": data.get("direccion"),
+        "phonE_MANAGER": data.get("phone"),
+        "fullname": data.get("name"),
         "state": "string"
         
     };
@@ -218,19 +213,20 @@ const InserPets = async(data) =>{
         body : JSON.stringify(bodyJ)
     };
 
-    let endpoing = ruta+"api/Pet";
+    let endpoing = ruta+"api/Manager";
     const consulta = await fetch(endpoing,config);
+    let response = await consulta.json()
     if (consulta.ok) {
         form_action.hidden = true;
         loadingInsert.hidden = true;
         botonesInsert.hidden = false;
         fromInser.reset()
-        getPets();
+        getManager();
         mensajes("creado con exito","success")
     }else{
-        botonesInsert.hidden = true;
-        loadingInsert.hidden = false;
-        mensajes("Hubo un error","error")   
+        botonesInsert.hidden = false;
+        loadingInsert.hidden = true;
+        mensajes(response.errors.PHONE_MANAGER,"error")   
     }
 }
 
@@ -247,18 +243,14 @@ const editar = async(id) => {
 
     
 
-    let endpoing = ruta+"api/Pet/One/"+id+"/"+vet;
+    let endpoing = ruta+"api/Manager/"+id+"/"+vet;
     const consulta = await fetch(endpoing,config);
     const response = await consulta.json();
     if(consulta.ok){
-        document.getElementById("name").value = response.namE_PET;
-        document.getElementById("identification").value = response.identificatioN_PET;
-        document.getElementById("size").value = response.size;
-        document.getElementById("age").value = response.age;
-        document.getElementById("weight").value = response.weight;
-        document.getElementById("id").value = response.iD_PET;
-        let managersR = await Managers();
-        populateManagerSelect(response, managersR);
+        document.getElementById("name").value = response.fullname;
+        document.getElementById("phone").value = response.phonE_MANAGER;
+        document.getElementById("direccion").value = response.addresS_MANAGER;
+        document.getElementById("id").value = response.iD_MANAGER;
         
     }else{
         mensajes("Hubo un error","error")
@@ -319,7 +311,7 @@ function populateRaceSelectInsert(race) {
     });
 }
 
-const EditPets = async(data) =>{
+const EditManager = async(data) =>{
     botonesEditar.hidden = true;
     loadingEditar.hidden = false;
     
@@ -329,54 +321,52 @@ const EditPets = async(data) =>{
     });
 
     let bodyJ = {
-        "identificatioN_PET": data.get("identification"),
-        "namE_PET": data.get("name"),
-        "iD_MANAGER": data.get("manager"),
-        "size": data.get("size"),
-        "age": data.get("age"),
-        "weight": data.get("weight")
+        "addresS_MANAGER": data.get("direccion"),
+        "phonE_MANAGER": data.get("phone"),
+        "fullname": data.get("name"),
         
     };
-    let idP = data.get("id");
+    let idM = data.get("id");
     const config ={
         method:'PUT',
         headers:headers,
         body : JSON.stringify(bodyJ)
     };
 
-    let endpoing = ruta+"api/Pet/"+idP;
+    let endpoing = ruta+"api/Manager/"+idM;
     console.log(endpoing);
     const consulta = await fetch(endpoing,config);
+    let response = await consulta.json()
     if (consulta.ok) {
         form_action_edit.hidden = true;
         loadingEditar.hidden = true;
         botonesEditar.hidden = false;
         FormEdit.reset()
-        getPets();
+        getManager();
         mensajes("Editado con exito","success")
     }else{
         botonesEditar.hidden = false;
         loadingEditar.hidden = true;
-        mensajes("Hubo un error","error")
+        mensajes(response.errors.PHONE_MANAGER,"error")   
     }
 }
 
-const deletePet = async(data) =>{
+const deleteManager = async(data) =>{
     let headers = new Headers({
         "accept": "*/*",
         "Content-Type": "application/json"
     });
-    let idPet = data.get("identificationP");
+    let idManager = data.get("identificationM");
     const config ={
         method:'DELETE',
         headers:headers,
     };
 
-    let endpoing = ruta+"api/Pet/"+idPet+"/"+vet;
+    let endpoing = ruta+"api/Manager/"+idManager+"/"+vet;
     const consulta = await fetch(endpoing,config);
     if (consulta.ok) {
         Formdelete.reset()
-        getPets();
+        getManager();
         mensajes("Cambiado con exito","success")
         console.log(modal)
         modal.hide();
@@ -399,24 +389,45 @@ const info = async(id) => {
         headers:headers
     };
 
-    let endpoing = ruta+"api/Pet/One/"+id+"/"+vet;
+    let endpoing = ruta+"api/Pet/Manager/"+id;
     const consulta = await fetch(endpoing,config);
     const response = await consulta.json();
-    // console.table(response)
+    console.table(response)
+    
     if(consulta.ok){
-        document.getElementById("NombreInfo").innerHTML = `Nombre: <b class="text-black">${response.namE_PET} </b> `
-        document.getElementById("IdentificaciónInfo").innerHTML = `Identificación: <b class="text-black">${response.identificatioN_PET} </b> `
-        document.getElementById("DuenoInfo").innerHTML = `Dueño: <b class="text-black">${response.manageR_NAME} </b> `
-        document.getElementById("DuenoPhoneInfo").innerHTML = `Telefono Dueño: <b class="text-black"> ${response.manageR_PHONE}</b>`
-        document.getElementById("TamanoInfo").innerHTML = `Tamaño: <b class="text-black">${response.size} </b> `
-        document.getElementById("ColorInfo").innerHTML = `Color: <b class="text-black">${response.color} </b> `
-        document.getElementById("EdadInfo").innerHTML = `Edad: <b class="text-black">${response.age}	</b>`
-        document.getElementById("PesoInfo").innerHTML = `Peso: <b class="text-black">${response.weight} </b> `
-        document.getElementById("RaceInfo").innerHTML = `Rasa: <b class="text-black">${response.racE_NAME} </b> `
-        document.getElementById("veterinariaInfo").innerHTML = `Veterinaria: <b class="text-black">${response.veT_NAME} </b> `
-        loadingInfo.hidden = true;
-        informacio.hidden = false; 
-        CancelarInfo.hidden = false;
+        console.log(Cardtt)
+        Cardtt.innerHTML = "";
+        
+        if(response.length > 0){
+            for (var i = 0; i < response.length; i++) {
+                let stateClass = response[i].state === 'ACTIVO' ? 'border border-success' : 'border border-warning';
+                let temp  = `
+                <div class="card col-5 mx-auto ${stateClass}">
+                    <div class="card-body">
+                        <h5 class="card-title">${response[i].namE_PET}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Rasa: ${response[i].racE_NAME}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Color: ${response[i].color}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Tamaño: ${response[i].size}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Edad: ${response[i].age}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Peso: ${response[i].weight}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Dueño: ${response[i].manageR_NAME}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Telefono Dueño: ${response[i].manageR_PHONE}</h6>
+                    </div>
+                </div>
+            `;
+                
+                Cardtt.innerHTML += temp;
+            }
+            loadingInfo.hidden = true;
+            informacio.hidden = false; 
+            CancelarInfo.hidden = false;
+        }else{
+            
+            mensajes("No tiene mascotas","info")
+            CancelarInfo.hidden = true;
+            loadingInfo.hidden = true;
+        }
+        
     }else{
         mensajes("Hubo un error al consultar","error")
     }

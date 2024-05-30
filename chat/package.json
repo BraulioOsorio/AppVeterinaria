@@ -4,8 +4,7 @@
     "description": "Chat en tiempo real",
     "dependencies": {
         "socket.io": "latest",
-        "express": "latest",
-        "jade": "latest"
+        "express": "latest"
     },
     "author": "Braulio"
 }

@@ -41,17 +41,18 @@ namespace ApiVet.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public ManagerDpo GetManager(int id)
+       [HttpGet("{id}/{idvet}")]
+        public ManagerDpo GetManager(int id,int idvet)
         {
             ManagerDpo managerDpo = null;
 
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = "SELECT * FROM MANAGER WHERE ID_MANAGER = @id OR PHONE_MANAGER = @id";
+                string consulta = "SELECT * FROM MANAGER WHERE ID_MANAGER = @id OR PHONE_MANAGER = @id AND ID_VET = @idvet";
                 using (MySqlCommand  comando = new MySqlCommand( consulta, conexion))
                 {
                     comando.Parameters.AddWithValue("@id", id);
+                    comando.Parameters.AddWithValue("@idvet", idvet);
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {
                         if (reader.Read())
@@ -85,6 +86,7 @@ namespace ApiVet.Controllers
                     comando.Parameters.AddWithValue("@fullname", manager.FULLNAME);
                     comando.Parameters.AddWithValue("@id", id);
 
+
                     try
                     {
                         int filasAfectadas = comando.ExecuteNonQuery();
@@ -103,16 +105,17 @@ namespace ApiVet.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/{idvet}")]
 
-        public IActionResult DeleteManager(int id)
+        public IActionResult DeleteManager(int id,int idvet)
         {
             using(MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = "UPDATE MANAGER SET STATE = IF(STATE = 'ACTIVO', 'INACTIVO', 'ACTIVO') WHERE ID_MANAGER = @id";
+                string consulta = "UPDATE MANAGER SET STATE = IF(STATE = 'ACTIVO', 'INACTIVO', 'ACTIVO') WHERE ID_MANAGER = @id OR PHONE_MANAGER = @id AND ID_VET = @idvet";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
                     comando.Parameters.AddWithValue("@id", id);
+                    comando.Parameters.AddWithValue("@idvet", idvet);
                     try
                     {
                         int filasAfectadas = comando.ExecuteNonQuery();
