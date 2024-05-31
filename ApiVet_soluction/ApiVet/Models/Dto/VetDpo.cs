@@ -15,8 +15,6 @@ namespace ApiVet.Models.Dto
     }
     public class VetUpdate
     {
-        [Required]
-        public int IDENTIFICATION_ADMIN { get; set; }
 
         [Required]
         public string NAME_VET { get; set; }

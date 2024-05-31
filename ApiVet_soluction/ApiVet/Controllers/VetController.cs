@@ -77,9 +77,10 @@ namespace ApiVet.Controllers
         {
             using (MySqlConnection conexion = MConexion.GetConexionDb())
             {
-                string consulta = "UPDATE VET SET  NAME_VET, ADDRESS = @address, WHERE ID_VET = @id";
+                string consulta = "UPDATE VET SET  NAME_VET = @name, ADDRESS = @address WHERE ID_VET = @id";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
+                    comando.Parameters.AddWithValue("@name", vetDpo.NAME_VET);
                     comando.Parameters.AddWithValue("@address", vetDpo.ADDRESS);
                     comando.Parameters.AddWithValue("@id", id);
 
@@ -98,7 +99,7 @@ namespace ApiVet.Controllers
 
                     }catch (Exception ex)
                     {
-                        return BadRequest("Algo salio mal en el update de vet. "+vetDpo);
+                        return BadRequest("Algo salio mal en el update de vet. "+ex.Message);
                     }
                 }
             }

@@ -70,7 +70,7 @@
                      <div class="row column_title page_title">
                         <div class="col-8">
                            <div>
-                              <h2>Dueños</h2>
+                              <h2>Rasas</h2>
                            </div>
                         </div>
                         <div class="col-2">
@@ -78,12 +78,7 @@
                               <button type="button" id="btn_add" class="btn cur-p btn-outline-info text-black"><i class=" fa fa-hand-o-right text-black"></i> Agregar</button>
                            </div>
                         </div>
-                        <div class="col-2">
-                           <div >
-                              <button type="button" id="btn_delete" class="btn cur-p btn-outline-danger text-black" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class=" fa fa-trash text-black"></i> Cambiar Estado</button>
-                           </div>
-                           
-                        </div>
+                       
                         
 
                      </div>
@@ -94,23 +89,14 @@
                         <div class="white_shd full margin_bottom_30"> 
                            <div class="full graph_head">
                               <div class="heading1 margin_0"> 
-                                 <h2>Agregar Dueño</h2>
+                                 <h2>Agregar Rasa</h2>
                               </div>
                            </div>
                            <div class="full graph_head">
-                              <form class="row g-3" id="InserManager" method="post">
-                                <div class="col-4">
+                              <form class="row g-3" id="InserRace" method="post">
+                                <div class="col-12">
                                    <label class="form-label">Nombre</label>
                                    <input type="text" class="form-control formularioM" name="name" required>
-                                 </div>
-                                 <div class="col-4">
-                                    <label  class="form-label">Numero de Telefono</label>                    
-                                    <input type="number" class="form-control formularioM" name="phone" required>
-                                 </div>
-
-                                 <div class="col-4">
-                                   <label  class="form-label">Dirección</label>
-                                   <input type="text" class="form-control formularioM" name="direccion" required>
                                  </div>
                                  <div class="col-12 text-center" id="loadingInsert">
                                     <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
@@ -137,21 +123,13 @@
                               </div>
                            </div>
                            <div class="full graph_head">
-                              <form class="row g-3" id="editManager" method="post">
-                                 <div class="col-6">
+                              <form class="row g-3" id="editRace" method="post">
+                                 <div class="col-12">
                                     <label class="form-label">Nombre</label>
                                     <input type="text" class="form-control formularioM"  id="name" name="name" required>
                                  </div>
-                                 <div class="col-6">
-                                    <label class="form-label">Numero de Telefono</label>
-                                    <input type="text" class="form-control formularioM"  id="phone" name="phone" required>
-                                 </div>
                                  
-                                 <div class="col-6">
-                                    <label  class="form-label">Dirección</label>
-                                    <input type="text" class="form-control formularioM" id="direccion" name="direccion" required>
-                                    
-                                 </div>
+                                 
                                  <input type="hidden" class="form-control formularioM" id="id" name="id">
                                  <div class="col-12 text-center" id="loadingEditar">
                                     <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
@@ -199,7 +177,7 @@
                         <div class="white_shd full margin_bottom_30">
                            <div class="full graph_head">
                               <div class="heading1 margin_0">
-                                 <h2>Lista de Dueños</h2>
+                                 <h2>Lista de Rasas</h2>
                               </div>
                            </div>
                            <div class="table_section padding_infor_info">
@@ -207,15 +185,13 @@
                                  <table class="table">
                                     <thead>
                                        <tr>
-                                          <th>Nombre</th>
-                                          <th>Dirección</th>
-                                          <th>Telefono</th>
+                                          <th>Rasa</th>
                                           <th>Estado</th>
-                                          <th>Mascotas</th>
                                           <th>Editar</th>
+                                          <th>Eliminar</th>
                                        </tr>
                                     </thead>
-                                    <tbody id="listManager">
+                                    <tbody id="listRaces">
                                        
                                     </tbody>
                                  </table>
@@ -238,30 +214,7 @@
          </div>
          
       </div>
-      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-         <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Manager </h1>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <form class="row g-3" id="eliminarManager" method="post">
-                  <div class="col-12">
-                    <label class="form-label">Telefono del Manager</label>
-                    <input type="int" class="form-control formularioM"  id="identificationM" name="identificationM" required>
-                  </div>
-                  <div class="col-12 text-center">
-                    <button type="submit" class="btn cur-p btn-outline-danger text-black">Cambiar Estado</button>
-                  </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-         </div>
-         </div>
-      </div>
+      
 
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
@@ -291,7 +244,7 @@
       <script src="js/config/config.js"></script>
       <script src="js/semantic.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      <script src="js/Manager/Manager.js"></script>
+      <script src="js/Race/Race.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

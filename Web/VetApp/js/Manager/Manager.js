@@ -402,7 +402,7 @@ const info = async(id) => {
             for (var i = 0; i < response.length; i++) {
                 let stateClass = response[i].state === 'ACTIVO' ? 'border border-success' : 'border border-warning';
                 let temp  = `
-                <div class="card col-5 mx-auto ${stateClass}">
+                <div class="card col-4 mx-auto mb-2 ${stateClass}">
                     <div class="card-body">
                         <h5 class="card-title">${response[i].namE_PET}</h5>
                         <h6 class="card-subtitle mb-2 text-body-dark">Rasa: ${response[i].racE_NAME}</h6>
