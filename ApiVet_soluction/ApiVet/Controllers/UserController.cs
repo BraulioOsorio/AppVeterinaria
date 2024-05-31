@@ -124,6 +124,43 @@ namespace ApiVet.Controllers
             return users;
         }
 
+        [HttpGet("admins")]
+        public IEnumerable<Admindpo> GetAdmins()
+        {
+            List<Admindpo> users = new List<Admindpo>();
+
+            using (MySqlConnection conexion = conexionDb.GetConexionDb())
+            {
+                string consulta = "SELECT * FROM USER WHERE CARGO = 'PROPIETARIO'";
+                using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
+                {
+
+                    
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Admindpo user = new Admindpo
+                            {
+                                ID_USER = Convert.ToInt32(reader["ID_USER"]),
+                                IDENTIFICATION = Convert.ToString(reader["IDENTIFICATION"]),
+                                ID_VET = Convert.ToInt32(reader["ID_VET"]),
+                                PHONE = Convert.ToString(reader["PHONE"]),
+                                NAME = Convert.ToString(reader["NAME"]),
+                                LASTNAME = Convert.ToString(reader["LASTNAME"]),
+                                EMAIL = Convert.ToString(reader["EMAIL"]),
+                                CARGO = Convert.ToString(reader["CARGO"]),
+                                STATE = Convert.ToString(reader["STATE"])
+                            };
+                            users.Add(user);
+                        }
+                    }
+
+                }
+            }
+            return users;
+        }
+
 
         [HttpPut("{id}")]
 
@@ -190,6 +227,37 @@ namespace ApiVet.Controllers
         
         }
 
+        [HttpDelete("/admins/{id}")]
+
+        public IActionResult deleteUserAdmins(int id)
+        {
+            using (MySqlConnection conexion = conexionDb.GetConexionDb())
+            {
+                string consulta = "UPDATE USER SET STATE = IF(STATE = 'ACTIVO','INACTIVO','ACTIVO') WHERE ID_USER = @id OR IDENTIFICATION = @id";
+                using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@id", id);
+                    try
+                    {
+                        int filasAfectadas = comando.ExecuteNonQuery();
+                        if (filasAfectadas > 0)
+                        {
+                            return Ok();
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest("Error al eliminar" + ex.Message);
+                    }
+                }
+
+            }
+
+        }
 
         [HttpPost]
 

@@ -1,35 +1,29 @@
 let ruta = sessionStorage.getItem("ruta");
 let vet = sessionStorage.getItem('vet');
 let contenidolista = null;
-let fromInser = document.getElementById("InserRace");
-let form_action = document.getElementById('form_action');
-let FormEdit = document.getElementById("editRace");
-
+let fromInser = document.getElementById("InsertUser");
 let btn_add = document.getElementById('btn_add');
 let CancelarE = document.getElementById('CancelarEdit');
 let CancelarI = document.getElementById('CancelarInsert');
 let botonesEditar = document.getElementById("botonesEditar");
 let loadingEditar = document.getElementById("loadingEditar");
-let loadingInfo = document.getElementById("loadingInfo");
-let Formdelete = document.getElementById("eliminarPet");
+let FormEdit = document.getElementById("editUser");
+let Formdelete = document.getElementById("eliminarUser");
 let btn_delete = document.getElementById('btn_delete');
+let form_action = document.getElementById('form_action');
 let form_action_edit = document.getElementById('form_action_edit');
 let botonesInsert = document.getElementById("botonesInsert");
 let loadingInsert = document.getElementById("loadingInsert");
 
-
-  
+const modal = new bootstrap.Modal('#staticBackdrop', {
+    keyboard: false
+  })
 form_action.hidden = true;
-form_action_info.hidden = true;
 form_action_edit.hidden = true;
 loadingEditar.hidden = true;
 loadingInsert.hidden = true;
-loadingInfo.hidden = true;
 
 
-btn_add.addEventListener('click',async() =>{
-    form_action.hidden = false;
-});
 
 CancelarEdit.addEventListener('click',() =>{
     form_action_edit.hidden = true;
@@ -41,12 +35,10 @@ CancelarInsert.addEventListener('click',() =>{
     form_action.reset()
 });
 
-
 window.onload = function(){
-    getRaces();
-    contenidolista = document.getElementById("listRaces");
+    contenidolista = document.getElementById("listUsers");
+    getUsers();
 }
-
 
 const Toast = Swal.mixin({
     toast: true,
@@ -68,28 +60,46 @@ const mensajes = (mensaje,tipo)=>{
       });
 }
 
-const deleteRace = async(id) =>{
+const Veterinarias = async()=>{
     let headers = new Headers({
         "accept": "*/*",
         "Content-Type": "application/json"
     });
     const config ={
-        method:'DELETE',
-        headers:headers,
+        method:'GET',
+        headers:headers
     };
 
-    let endpoing = ruta+"api/Race/"+id;
-    const consulta = await fetch(endpoing,config);
-    if (consulta.ok) {
-        getRaces();
-        mensajes("Cambiado con exito","success")
-        
-    }else{
-        mensajes("Hubo un error","error")
+    let endpoingVet = ruta+"api/Vet";
+    const consultaVet = await fetch(endpoingVet,config);
+    const responseVet = await consultaVet.json();
+    if(consultaVet.ok){
+        return responseVet;
     }
 }
+btn_add.addEventListener('click', async () =>{
+    form_action.hidden = false;
+    let vets = await Veterinarias();
+    populateManagerSelectInsert(vets)
+});
 
-const getRaces = async() =>{
+fromInser.addEventListener('submit', (e) =>{
+    e.preventDefault();
+    let data = new FormData(fromInser);
+    insertUser(data);
+});
+Formdelete.addEventListener('submit', (e) =>{
+    e.preventDefault();
+    let data = new FormData(Formdelete);
+    deleteUser(data);
+});
+FormEdit.addEventListener('submit', (e) =>{
+    e.preventDefault();
+    let data = new FormData(FormEdit);
+    EditUser(data);
+});
+
+const getUsers = async() =>{
     let headers = new Headers({
         "accept": "application/json",
         "Content-Type": "application/json"
@@ -99,8 +109,10 @@ const getRaces = async() =>{
         method:'GET',
         headers:headers
     };
+    
+    
 
-    let endpoing = ruta+"RaceVet/"+vet;
+    let endpoing = ruta+"api/User/admins";
     const consulta = await fetch(endpoing,config);
     if(consulta.ok){
 
@@ -112,13 +124,15 @@ const getRaces = async() =>{
             
             let temp = `
                 <tr class="${stateClass}">
-                    <td>${response[i].race}</td>
+                    <td>${response[i].name} ${response[i].lastname}</td>
+                    <td>${response[i].phone}</td>
+                    <td>${response[i].email}</td>
+                    <td>${response[i].identification}</td>
+                    <td>${response[i].cargo}</td>
                     <td>${response[i].state}</td>
                     <td>
-                        <a href="#content" onclick="editar(${response[i].iD_RACE})"><i class="fa fa-edit text-black"></i></a>
-                    </td>
-                    <td>
-                        <a href="##" onclick="deleteRace(${response[i].iD_RACE})"><i class="fa-solid fa-trash text-black"></i></a>
+                        <a href="#content" onclick="editar(${response[i].iD_USER})"><i class="fa fa-edit text-black"></i></a>
+
                     </td>
                 </tr>
             `;
@@ -131,44 +145,47 @@ const getRaces = async() =>{
     }
     
 }
-const InsertRace = async(data) =>{
+
+const insertUser = async(data) =>{
     botonesInsert.hidden = true;
     loadingInsert.hidden = false;
-
     let headers = new Headers({
         "accept": "*/*",
         "Content-Type": "application/json"
     });
 
     let bodyJ = {
-        "iD_RACE": 0,
-        "race": data.get("name"),
-        "iD_VET": vet,
-        "state": "string"      
+        "iD_USER": 0,
+        "identification": data.get("identification"),
+        "iD_VET": data.get("vet"),
+        "phone": data.get("phone"),
+        "name": data.get("name"),
+        "lastname": data.get("apellido"),
+        "email": data.get("email"),
+        "pass": data.get("pass"),
+        "cargo": "PROPIETARIO",
+        "state": "string"
+        
     };
-    console.log(bodyJ);
-    
-
     const config ={
         method:'POST',
         headers:headers,
         body : JSON.stringify(bodyJ)
     };
-    
-    let endpoing = ruta+"api/Race";
+
+    let endpoing = ruta+"api/User";
     const consulta = await fetch(endpoing,config);
     if (consulta.ok) {
         form_action.hidden = true;
         loadingInsert.hidden = true;
         botonesInsert.hidden = false;
         fromInser.reset()
-        getRaces();
+        getUsers();
         mensajes("creado con exito","success")
     }else{
         botonesInsert.hidden = true;
         loadingInsert.hidden = false;
-        mensajes("Hubo un error","error")   
-    }
+        mensajes("Hubo un error","error")    }
 }
 const editar = async(id) => {
     let headers = new Headers({
@@ -180,56 +197,56 @@ const editar = async(id) => {
         headers:headers
     };
 
-    
-
-    let endpoing = ruta+"api/Race/"+id;
+    let endpoing = ruta+"api/User/"+id+"/"+vet;
     const consulta = await fetch(endpoing,config);
-    const response = await consulta.json();
     if(consulta.ok){
-        document.getElementById("name").value = response.race;
-        document.getElementById("id").value = response.iD_RACE;
+
+        const response = await consulta.json();
+        
+        document.getElementById("phone").value = response.phone;
+        document.getElementById("name").value = response.name;
+        document.getElementById("lastname").value = response.lastname;
+        document.getElementById("email").value = response.email;
+        document.getElementById("id").value = response.iD_USER;
         
     }else{
-        mensajes("Hubo un error","error")
+        const response = await consulta.json();
+        console.log(response+"error");
     }
 
     form_action_edit.hidden = false;
 }
-FormEdit.addEventListener('submit', (e) =>{
-    e.preventDefault();
-    let data = new FormData(FormEdit);
-    EditRace(data);
-});
-const EditRace = async(data) =>{
+
+const EditUser = async(data) =>{
     botonesEditar.hidden = true;
     loadingEditar.hidden = false;
-    
     let headers = new Headers({
         "accept": "*/*",
         "Content-Type": "application/json"
     });
 
     let bodyJ = {
-        "race": data.get("name"),        
-        "iD_VET": vet,        
+        "phone": data.get("phone"),
+        "name": data.get("name"),
+        "lastname": data.get("lastname"),
+        "email": data.get("email")
+        
     };
-    let idR = data.get("id");
-    console.log(idR)
+    let idUser = data.get("id");
     const config ={
         method:'PUT',
         headers:headers,
         body : JSON.stringify(bodyJ)
     };
 
-    let endpoing = ruta+"api/Race/"+idR;
-    console.log(endpoing);
+    let endpoing = ruta+"api/User/"+idUser;
     const consulta = await fetch(endpoing,config);
     if (consulta.ok) {
         form_action_edit.hidden = true;
         loadingEditar.hidden = true;
         botonesEditar.hidden = false;
         FormEdit.reset()
-        getRaces();
+        getUsers();
         mensajes("Editado con exito","success")
     }else{
         botonesEditar.hidden = false;
@@ -238,15 +255,40 @@ const EditRace = async(data) =>{
     }
 }
 
-fromInser.addEventListener('submit', (e) =>{
-    e.preventDefault();
-    let data = new FormData(fromInser);
-    InsertRace(data);
-});
+const deleteUser = async(data) =>{
+    let headers = new Headers({
+        "accept": "*/*",
+        "Content-Type": "application/json"
+    });
+    let idUser = data.get("identification");
+    const config ={
+        method:'DELETE',
+        headers:headers,
+    };
 
+    let endpoing = ruta+"admins/"+idUser;
+    const consulta = await fetch(endpoing,config);
+    if (consulta.ok) {
+        Formdelete.reset()
+        getUsers();
+        mensajes("Cambiado con exito","success")
+        modal.hide();
+    }else{
+        mensajes("Hubo un error","error")
+    }
+}
 
+function populateManagerSelectInsert(vetResponse) {
+    const select = document.getElementById('vetSelectInsert');
+    select.innerHTML = '';
 
-
-
-
+    vetResponse.forEach(vet => {
+    
+        let option = document.createElement('option');
+        option.value = vet.iD_VET;
+        option.textContent = vet.namE_VET;
+        select.appendChild(option);
+        
+    });
+}
 

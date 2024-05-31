@@ -156,29 +156,39 @@
                            </div>
                         </div>
                      </div>
-                     <div class="col-12" id="form_action_info" >
-                        <div class="white_shd full margin_bottom_30"> 
-                           <div class="full graph_head">
-                              <div class="heading1 margin_0"> 
-                                 <h2>Información de la Veterinaria</h2>
+                  </div>
+                  <div class="col-12" id="form_action_info" hidden>
+                     <div class="white_shd full margin_bottom_30"> 
+                        <div class="full graph_head">
+                           <div class="heading1 margin_0"> 
+                              <h2>Información de la Veterinaria</h2>
+                           </div>
+                        </div>
+                        <div class="full graph_head row text-center" id="informacio">
+                           
+                           <div class="col-6">
+                              <label id="NombreInfo"></label>  
+                           </div>
+                           <div class="col-6">
+                              <label id="direccion"></label>
+                           </div>
+                           <div class="col-6">
+                              <label  id="DuenophoneInfo"></label>   
+                           </div>
+                           <div class="col-6">
+                              <label  id="DuenonameInfo"></label>   
+                           </div>
+                           <div class="col-6">
+                              <label  id="emailInfo"></label>
+                           </div>
+                           <div  class="row mt-3">
+                              <div class="col-12 text-center">
+                                 <button type="button" class="btn cur-p btn-outline-danger text-black" id="CancelarInfo">Cancelar</button>
                               </div>
                            </div>
-                           <div class="full graph_head row text-center" id="informacio">
-                              <div class="container">
-                                <div class="row" id="Cardtt"> 
-
-                                </div>
-                              </div>
-                              
-                              <div  class="row mt-3">
-                                 <div class="col-12 text-center">
-                                    <button type="button" class="btn cur-p btn-outline-danger text-black" id="CancelarInfo">Cancelar</button>
-                                 </div>
-                              </div>
-                           </div>
-                           <div  class="col-12 text-center" id="loadingInfo" style="margin-top: 150px;margin-bottom: 70px;">
-                              <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
-                           </div>
+                        </div>
+                        <div  class="col-12 text-center" id="loadingInfo" style="margin-top: 150px;margin-bottom: 70px;">
+                           <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
                         </div>
                      </div>
                   </div>
@@ -197,8 +207,9 @@
                                        <tr>
                                           <th>Nombre</th>
                                           <th>Dirección</th>
-                                          <th>Editar</th>
                                           <th>Info</th>
+                                          <th>Editar</th>
+                                          <th>Eliminar</th>
                                        </tr>
                                     </thead>
                                     <tbody id="listVets">
@@ -206,6 +217,9 @@
                                     </tbody>
                                  </table>
                               </div>
+                           </div>
+                           <div  class="col-12 text-center" id="loadingTable" style="margin-top: 150px;margin-bottom: 70px;">
+                              <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
                            </div>
                         </div>
                      </div>

@@ -19,7 +19,7 @@ namespace ApiVet.Controllers
             List<VetDpo> vets = new List<VetDpo>();
             using (MySqlConnection conexion = MConexion.GetConexionDb())
             {
-                string consulta = "SELECT * FROM VET WHERE STATE = 'ACTIVO'";
+                string consulta = "SELECT * FROM VET";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
                     using (MySqlDataReader reader = comando.ExecuteReader())

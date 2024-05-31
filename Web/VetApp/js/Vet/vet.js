@@ -4,6 +4,10 @@ let contenidolista = null;
 let fromInser = document.getElementById("InserVet");
 let form_action = document.getElementById('form_action');
 let FormEdit = document.getElementById("EditVet");
+let informacio = document.getElementById("informacio");
+let loadingTable = document.getElementById("loadingTable");
+let form_action_info = document.getElementById('form_action_info');
+let CancelarInfo = document.getElementById('CancelarInfo');
 
 let btn_add = document.getElementById('btn_add');
 let CancelarE = document.getElementById('CancelarEdit');
@@ -25,6 +29,8 @@ form_action_edit.hidden = true;
 loadingEditar.hidden = true;
 loadingInsert.hidden = true;
 loadingInfo.hidden = true;
+loadingTable.hidden = false;
+informacio.hidden = true;
 
 
 btn_add.addEventListener('click',async() =>{
@@ -39,6 +45,10 @@ CancelarEdit.addEventListener('click',() =>{
 CancelarInsert.addEventListener('click',() =>{
     form_action.hidden = true;
     form_action.reset()
+});
+CancelarInfo.addEventListener('click',() =>{
+    form_action_info.hidden = true;
+    
 });
 
 
@@ -68,8 +78,7 @@ const mensajes = (mensaje,tipo)=>{
       });
 }
 
-const deleteRace = async(id) =>{
-    console.log(id);
+const deleteVet = async(id) =>{
     let headers = new Headers({
         "accept": "*/*",
         "Content-Type": "application/json"
@@ -79,7 +88,7 @@ const deleteRace = async(id) =>{
         headers:headers,
     };
 
-    let endpoing = ruta+"api/Race/"+id;
+    let endpoing = ruta+"api/Vet/"+id;
     const consulta = await fetch(endpoing,config);
     if (consulta.ok) {
         getVets();
@@ -91,6 +100,7 @@ const deleteRace = async(id) =>{
 }
 
 const getVets = async() =>{
+    
     let headers = new Headers({
         "accept": "application/json",
         "Content-Type": "application/json"
@@ -116,10 +126,13 @@ const getVets = async() =>{
                     <td>${response[i].namE_VET}</td>
                     <td>${response[i].address}</td>
                     <td>
+                        <a href="#content" onclick="info(${response[i].iD_VET})"><i class="fa fa-info-circle text-black"></i></a>
+                    </td>
+                    <td>
                         <a href="#content" onclick="editar(${response[i].iD_VET})"><i class="fa fa-edit text-black"></i></a>
                     </td>
                     <td>
-                        <a href="#content" onclick="info(${response[i].iD_VET})"><i class="fa fa-info-circle text-black"></i></a>
+                        <a href="##" onclick="deleteVet(${response[i].iD_VET})"><i class="fa-solid fa-trash text-black"></i></a>
                     </td>
                 </tr>
             `;
@@ -130,7 +143,7 @@ const getVets = async() =>{
     }else{
         mensajes("Hubo un error","error")
     }
-    
+    loadingTable.hidden = true;
 }
 const InsertVets = async(data) =>{
     botonesInsert.hidden = true;
@@ -246,6 +259,50 @@ fromInser.addEventListener('submit', (e) =>{
     let data = new FormData(fromInser);
     InsertVets(data);
 });
+
+const info = async(id) => {
+    loadingInfo.hidden = false;
+    CancelarInfo.hidden = true;
+    informacio.hidden = true; 
+    
+    let headers = new Headers({
+        "accept": "*/*",
+        "Content-Type": "application/json"
+    });
+    const config ={
+        method:'GET',
+        headers:headers
+    };
+
+    let endpoing = ruta+"api/Vet/admin/"+id;
+    const consulta = await fetch(endpoing,config);
+    try {
+        const response = await consulta.json();
+        if(consulta.ok){
+        
+            document.getElementById("NombreInfo").innerHTML = `Nombre: <b class="text-black">${response.namE_VET} </b> `
+            document.getElementById("direccion").innerHTML = `Identificación: <b class="text-black">${response.address} </b> `
+            document.getElementById("DuenonameInfo").innerHTML = `Dueño: <b class="text-black">${response.name} ${response.lastname}</b> `
+            document.getElementById("DuenophoneInfo").innerHTML = `Telefono Dueño: <b class="text-black"> ${response.phone}</b>`
+            document.getElementById("emailInfo").innerHTML = `Color: <b class="text-black">${response.email} </b> `
+            loadingInfo.hidden = true;
+            informacio.hidden = false; 
+            CancelarInfo.hidden = false;
+            form_action_info.hidden = false;
+        }else{
+            
+            mensajes("Hubo un error al consultar","error")
+        }
+    } catch (error) {
+        form_action_info.hidden = true;
+        mensajes("Todavia no tiene Admistrador","info")
+    }
+    
+    
+    
+
+    
+}
 
 
 
