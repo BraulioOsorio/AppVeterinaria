@@ -57,12 +57,14 @@ const inicio = async(data) =>{
         
         let rol = response.rol;
         let vet = response.vet;
+        console.log(rol);
         sessionStorage.setItem('vet',vet);
         if (rol ==='TRABAJADOR'){
             window.location = "Mascotas.html"
-
         }else if(rol === 'PROPIETARIO'){
             window.location = "users.html"
+        }else if(rol === 'ADMIN'){
+            window.location = "usersAdmin.html"
         }
     }else{
         login_section.hidden = false;

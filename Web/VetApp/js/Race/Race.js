@@ -4,7 +4,7 @@ let contenidolista = null;
 let fromInser = document.getElementById("InserRace");
 let form_action = document.getElementById('form_action');
 let FormEdit = document.getElementById("editRace");
-
+let loadingTable = document.getElementById("loadingTable");
 let btn_add = document.getElementById('btn_add');
 let CancelarE = document.getElementById('CancelarEdit');
 let CancelarI = document.getElementById('CancelarInsert');
@@ -25,6 +25,7 @@ form_action_edit.hidden = true;
 loadingEditar.hidden = true;
 loadingInsert.hidden = true;
 loadingInfo.hidden = true;
+loadingTable.hidden = false;
 
 
 btn_add.addEventListener('click',async() =>{
@@ -129,6 +130,7 @@ const getRaces = async() =>{
     }else{
         mensajes("Hubo un error","error")
     }
+    loadingTable.hidden = true;
     
 }
 const InsertRace = async(data) =>{

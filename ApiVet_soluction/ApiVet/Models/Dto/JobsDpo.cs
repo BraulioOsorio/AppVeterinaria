@@ -52,6 +52,10 @@ namespace ApiVet.Models.Dto
     {
         public int ID_JOBS { get; set; }
         public string JOB { get; set; }
+        public string NAME { get; set; }
+        public string LASTNAME { get; set; }
+        public int ID_PET { get; set; }
+        public int ID_USER { get; set; }
         public decimal COSTS { get; set; }
         public string COST_DESCRIPTION { get; set; }
         public string STATE { get; set; }

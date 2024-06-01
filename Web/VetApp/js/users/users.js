@@ -14,6 +14,7 @@ let form_action = document.getElementById('form_action');
 let form_action_edit = document.getElementById('form_action_edit');
 let botonesInsert = document.getElementById("botonesInsert");
 let loadingInsert = document.getElementById("loadingInsert");
+let loadingTable = document.getElementById("loadingTable");
 
 const modal = new bootstrap.Modal('#staticBackdrop', {
     keyboard: false
@@ -22,6 +23,7 @@ form_action.hidden = true;
 form_action_edit.hidden = true;
 loadingEditar.hidden = true;
 loadingInsert.hidden = true;
+loadingTable.hidden = false;
 
 btn_add.addEventListener('click',() =>{
     form_action.hidden = false;
@@ -122,6 +124,7 @@ const getUsers = async() =>{
     }else{
         mensajes("Hubo un error","error")
     }
+    loadingTable.hidden = true;
     
 }
 
@@ -207,6 +210,7 @@ const EditUser = async(data) =>{
     let bodyJ = {
         "phone": data.get("phone"),
         "name": data.get("name"),
+        "iD_VET": vet,
         "lastname": data.get("lastname"),
         "email": data.get("email")
         

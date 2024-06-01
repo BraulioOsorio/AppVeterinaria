@@ -6,7 +6,7 @@ let form_action = document.getElementById('form_action');
 let form_action_info = document.getElementById('form_action_info');
 let FormEdit = document.getElementById("editPets");
 let informacio = document.getElementById("informacio");
-
+let loadingTable = document.getElementById("loadingTable");
 let btn_add = document.getElementById('btn_add');
 let CancelarE = document.getElementById('CancelarEdit');
 let CancelarInfo = document.getElementById('CancelarInfo');
@@ -32,6 +32,7 @@ loadingEditar.hidden = true;
 loadingInsert.hidden = true;
 loadingInfo.hidden = true;
 informacio.hidden = true;
+loadingTable.hidden = false;
 
 const Races = async()=>{
     let headers = new Headers({
@@ -181,6 +182,7 @@ const getPets = async() =>{
     }else{
         mensajes("Hubo un error","error")
     }
+    loadingTable.hidden = true;
     
 }
 

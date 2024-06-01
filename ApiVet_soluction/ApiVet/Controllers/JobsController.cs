@@ -16,10 +16,11 @@ namespace ApiVet.Controllers
             List<JobsInfo> Jobs = new List<JobsInfo>();
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = @"SELECT JOBS.*,PET.*,MANAGER.*,RACE.*,VET.* FROM JOBS
+                string consulta = @"SELECT JOBS.*,PET.*,MANAGER.*,RACE.*,VET.*,USER.* FROM JOBS
                                     INNER JOIN PET ON JOBS.IDENTIFICATION_PET = PET.ID_PET
                                     INNER JOIN MANAGER ON PET.ID_MANAGER = MANAGER.ID_MANAGER
                                     INNER JOIN RACE ON PET.ID_RACE = RACE.ID_RACE
+                                    INNER JOIN USER ON JOBS.ID_USER = USER.ID_USER
                                     INNER JOIN VET ON PET.ID_VET = VET.ID_VET  WHERE JOBS.ID_VET = @id ";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
@@ -31,7 +32,11 @@ namespace ApiVet.Controllers
                             JobsInfo job = new JobsInfo
                             {
                                 ID_JOBS = Convert.ToInt32(reader["ID_JOBS"]),
+                                ID_USER = Convert.ToInt32(reader["ID_USER"]),
+                                ID_PET = Convert.ToInt32(reader["ID_PET"]),
                                 JOB = Convert.ToString(reader["JOB"]),
+                                NAME = Convert.ToString(reader["NAME"]),
+                                LASTNAME = Convert.ToString(reader["LASTNAME"]),
                                 COSTS = Convert.ToDecimal(reader["COSTS"]),
                                 COST_DESCRIPTION = Convert.ToString(reader["COST_DESCRIPTION"]),
                                 NAME_PET = Convert.ToString(reader["NAME_PET"]),
@@ -175,10 +180,11 @@ namespace ApiVet.Controllers
 
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = @"SELECT JOBS.*,PET.*,MANAGER.*,RACE.*,VET.* FROM JOBS
+                string consulta = @"SELECT JOBS.*,PET.*,MANAGER.*,RACE.*,VET.*,USER.* FROM JOBS
                                     INNER JOIN PET ON JOBS.IDENTIFICATION_PET = PET.ID_PET
                                     INNER JOIN MANAGER ON PET.ID_MANAGER = MANAGER.ID_MANAGER
                                     INNER JOIN RACE ON PET.ID_RACE = RACE.ID_RACE
+                                    INNER JOIN USER ON JOBS.ID_USER = USER.ID_USER
                                     INNER JOIN VET ON PET.ID_VET = VET.ID_VET  WHERE PET.ID_PET = @id ";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
@@ -190,8 +196,12 @@ namespace ApiVet.Controllers
                             JobsInfo jobs = new JobsInfo
                             {
                                 ID_JOBS = Convert.ToInt32(reader["ID_JOBS"]),
+                                ID_USER = Convert.ToInt32(reader["ID_USER"]),
+                                ID_PET = Convert.ToInt32(reader["ID_PET"]),
                                 JOB = Convert.ToString(reader["JOB"]),
                                 COSTS = Convert.ToDecimal(reader["COSTS"]),
+                                NAME = Convert.ToString(reader["NAME"]),
+                                LASTNAME = Convert.ToString(reader["LASTNAME"]),
                                 COST_DESCRIPTION = Convert.ToString(reader["COST_DESCRIPTION"]),
                                 NAME_PET = Convert.ToString(reader["NAME_PET"]),
                                 FULLNAME = Convert.ToString(reader["FULLNAME"]),
@@ -218,10 +228,11 @@ namespace ApiVet.Controllers
 
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = @"SELECT JOBS.*,PET.*,MANAGER.*,RACE.*,VET.* FROM JOBS
+                string consulta = @"SELECT JOBS.*,PET.*,MANAGER.*,RACE.*,VET.*,USER.* FROM JOBS
                                     INNER JOIN PET ON JOBS.IDENTIFICATION_PET = PET.ID_PET
                                     INNER JOIN MANAGER ON PET.ID_MANAGER = MANAGER.ID_MANAGER
                                     INNER JOIN RACE ON PET.ID_RACE = RACE.ID_RACE
+                                    INNER JOIN USER ON JOBS.ID_USER = USER.ID_USER
                                     INNER JOIN VET ON PET.ID_VET = VET.ID_VET  WHERE JOBS.ID_JOBS = @id ";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
@@ -233,8 +244,12 @@ namespace ApiVet.Controllers
                             job = new JobsInfo
                             {
                                 ID_JOBS = Convert.ToInt32(reader["ID_JOBS"]),
+                                ID_USER = Convert.ToInt32(reader["ID_USER"]),
+                                ID_PET = Convert.ToInt32(reader["ID_PET"]),
                                 JOB = Convert.ToString(reader["JOB"]),
                                 COSTS = Convert.ToDecimal(reader["COSTS"]),
+                                NAME = Convert.ToString(reader["NAME"]),
+                                LASTNAME = Convert.ToString(reader["LASTNAME"]),
                                 COST_DESCRIPTION = Convert.ToString(reader["COST_DESCRIPTION"]),
                                 NAME_PET = Convert.ToString(reader["NAME_PET"]),
                                 FULLNAME = Convert.ToString(reader["FULLNAME"]),
@@ -262,10 +277,11 @@ namespace ApiVet.Controllers
 
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = @"SELECT JOBS.*,PET.*,MANAGER.*,RACE.*,VET.* FROM JOBS
+                string consulta = @"SELECT JOBS.*,PET.*,MANAGER.*,RACE.*,VET.*,USER.* FROM JOBS
                                     INNER JOIN PET ON JOBS.IDENTIFICATION_PET = PET.ID_PET
                                     INNER JOIN MANAGER ON PET.ID_MANAGER = MANAGER.ID_MANAGER
                                     INNER JOIN RACE ON PET.ID_RACE = RACE.ID_RACE
+                                    INNER JOIN USER ON JOBS.ID_USER = USER.ID_USER
                                     INNER JOIN VET ON PET.ID_VET = VET.ID_VET  WHERE JOBS.ID_VET = @id AND JOBS.STATE = @state ";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
@@ -278,8 +294,12 @@ namespace ApiVet.Controllers
                             JobsInfo jobs = new JobsInfo
                             {
                                 ID_JOBS = Convert.ToInt32(reader["ID_JOBS"]),
+                                ID_USER = Convert.ToInt32(reader["ID_USER"]),
+                                ID_PET = Convert.ToInt32(reader["ID_PET"]),
                                 JOB = Convert.ToString(reader["JOB"]),
                                 COSTS = Convert.ToDecimal(reader["COSTS"]),
+                                NAME = Convert.ToString(reader["NAME"]),
+                                LASTNAME = Convert.ToString(reader["LASTNAME"]),
                                 COST_DESCRIPTION = Convert.ToString(reader["COST_DESCRIPTION"]),
                                 NAME_PET = Convert.ToString(reader["NAME_PET"]),
                                 FULLNAME = Convert.ToString(reader["FULLNAME"]),
@@ -306,10 +326,11 @@ namespace ApiVet.Controllers
 
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = @"SELECT JOBS.*,PET.*,MANAGER.*,RACE.*,VET.* FROM JOBS
+                string consulta = @"SELECT JOBS.*,PET.*,MANAGER.*,RACE.*,VET.*,USER.* FROM JOBS
                                     INNER JOIN PET ON JOBS.IDENTIFICATION_PET = PET.ID_PET
                                     INNER JOIN MANAGER ON PET.ID_MANAGER = MANAGER.ID_MANAGER
                                     INNER JOIN RACE ON PET.ID_RACE = RACE.ID_RACE
+                                    INNER JOIN USER ON JOBS.ID_USER = USER.ID_USER
                                     INNER JOIN VET ON PET.ID_VET = VET.ID_VET  WHERE JOBS.ID_VET = @id AND JOBS.STATE_MONEY = @state ";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
@@ -322,8 +343,12 @@ namespace ApiVet.Controllers
                             JobsInfo jobs = new JobsInfo
                             {
                                 ID_JOBS = Convert.ToInt32(reader["ID_JOBS"]),
+                                ID_USER = Convert.ToInt32(reader["ID_USER"]),
+                                ID_PET = Convert.ToInt32(reader["ID_PET"]),
                                 JOB = Convert.ToString(reader["JOB"]),
                                 COSTS = Convert.ToDecimal(reader["COSTS"]),
+                                NAME = Convert.ToString(reader["NAME"]),
+                                LASTNAME = Convert.ToString(reader["LASTNAME"]),
                                 COST_DESCRIPTION = Convert.ToString(reader["COST_DESCRIPTION"]),
                                 NAME_PET = Convert.ToString(reader["NAME_PET"]),
                                 FULLNAME = Convert.ToString(reader["FULLNAME"]),

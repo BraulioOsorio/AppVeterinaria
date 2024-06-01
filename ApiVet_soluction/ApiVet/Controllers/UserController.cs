@@ -86,6 +86,42 @@ namespace ApiVet.Controllers
             return user;  
         }
 
+        [HttpGet("Admin/{id}")]
+        public AdmindpoAdmin GetUserAdminOne(int id)
+        {
+            AdmindpoAdmin user = null;
+
+            using (MySqlConnection conexion = conexionDb.GetConexionDb())
+            {
+                string consulta = "SELECT USER.*,VET.NAME_VET FROM USER LEFT JOIN VET ON USER.ID_VET = VET.ID_VET WHERE ID_USER = @id OR IDENTIFICATION = @id";
+                using(MySqlCommand comando = new MySqlCommand(consulta, conexion)) {
+
+                    comando.Parameters.AddWithValue("@id", id);
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            user = new AdmindpoAdmin
+                            {
+                                ID_USER = Convert.ToInt32(reader["ID_USER"]),
+                                IDENTIFICATION = Convert.ToString(reader["IDENTIFICATION"]),
+                                NAME_VET = Convert.ToString(reader["NAME_VET"]),
+                                ID_VET = Convert.ToInt32(reader["ID_VET"]),
+                                PHONE = Convert.ToString(reader["PHONE"]),
+                                NAME = Convert.ToString(reader["NAME"]),
+                                LASTNAME = Convert.ToString(reader["LASTNAME"]),
+                                EMAIL = Convert.ToString(reader["EMAIL"]),
+                                CARGO = Convert.ToString(reader["CARGO"]),
+                                STATE = Convert.ToString(reader["STATE"])
+                            };
+                        }
+                    }
+
+                }
+            }
+            return user;  
+        }
+
 
         [HttpGet("vet/{id}")]
         public IEnumerable<Admindpo> GetUservet(int id)
@@ -168,13 +204,14 @@ namespace ApiVet.Controllers
         {
             using (MySqlConnection conexion = conexionDb.GetConexionDb())
             {
-                string consulta = "UPDATE USER SET PHONE = @phone, NAME = @name, LASTNAME = @lastname, EMAIL = @email WHERE ID_USER = @id";
+                string consulta = "UPDATE USER SET PHONE = @phone, ID_VET =@vet , NAME = @name, LASTNAME = @lastname, EMAIL = @email WHERE ID_USER = @id";
                 using(MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
                     comando.Parameters.AddWithValue("@phone", user.PHONE);
                     comando.Parameters.AddWithValue("@name", user.NAME);
                     comando.Parameters.AddWithValue("@lastname", user.LASTNAME);
                     comando.Parameters.AddWithValue("@email", user.EMAIL);
+                    comando.Parameters.AddWithValue("@vet", user.ID_VET);
                     comando.Parameters.AddWithValue("@id", id);
 
                     try {

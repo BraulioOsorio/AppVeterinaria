@@ -51,6 +51,10 @@ namespace ApiVet.Models.Dto
 
         [Required]
         [MaxLength(100)]
+        public string ID_VET { get; set; }
+
+        [Required]
+        [MaxLength(100)]
         public string LASTNAME { get; set; }
 
         [Required]
@@ -67,5 +71,41 @@ namespace ApiVet.Models.Dto
         [Required]
         public string PASS { get; set; }
 
+    }
+
+    public class AdmindpoAdmin
+    {
+        public int ID_USER { get; set;}
+
+        [Required]
+        [MaxLength(20)]
+        public string IDENTIFICATION { get; set; }
+
+        [Required]
+        public int ID_VET { get; set; }
+
+        public string PHONE { get; set; }
+        public string NAME_VET { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        public string NAME { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        public string LASTNAME { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string EMAIL { get; set; }
+
+        [Required]
+        [MaxLength(200)]
+        public string PASS { get; set; }
+
+        [Required]
+        public string CARGO { get; set; }
+
+        public string STATE { get; set; }
     }
 }

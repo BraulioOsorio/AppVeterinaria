@@ -14,6 +14,7 @@ let form_action = document.getElementById('form_action');
 let form_action_edit = document.getElementById('form_action_edit');
 let botonesInsert = document.getElementById("botonesInsert");
 let loadingInsert = document.getElementById("loadingInsert");
+let loadingTable = document.getElementById("loadingTable");
 
 const modal = new bootstrap.Modal('#staticBackdrop', {
     keyboard: false
@@ -22,6 +23,7 @@ form_action.hidden = true;
 form_action_edit.hidden = true;
 loadingEditar.hidden = true;
 loadingInsert.hidden = true;
+loadingTable.hidden = false;
 
 
 
@@ -143,6 +145,7 @@ const getUsers = async() =>{
     }else{
         mensajes("Hubo un error","error")
     }
+    loadingTable.hidden = true;
     
 }
 
@@ -197,7 +200,7 @@ const editar = async(id) => {
         headers:headers
     };
 
-    let endpoing = ruta+"api/User/"+id+"/"+vet;
+    let endpoing = ruta+"api/User/Admin/"+id;
     const consulta = await fetch(endpoing,config);
     if(consulta.ok){
 
@@ -208,6 +211,8 @@ const editar = async(id) => {
         document.getElementById("lastname").value = response.lastname;
         document.getElementById("email").value = response.email;
         document.getElementById("id").value = response.iD_USER;
+        let vets = await Veterinarias();
+        populateManagerSelect(response,vets)
         
     }else{
         const response = await consulta.json();
@@ -228,6 +233,7 @@ const EditUser = async(data) =>{
     let bodyJ = {
         "phone": data.get("phone"),
         "name": data.get("name"),
+        "iD_VET": data.get("vet"),
         "lastname": data.get("lastname"),
         "email": data.get("email")
         
@@ -291,4 +297,29 @@ function populateManagerSelectInsert(vetResponse) {
         
     });
 }
+
+function populateManagerSelect(adminResponse, vetResponse) {
+    const select = document.getElementById('vetSelect');
+    console.log(adminResponse)
+    select.innerHTML = '';
+
+    let firstOption = document.createElement('option');
+    firstOption.value = adminResponse.iD_VET;
+    firstOption.textContent = adminResponse.namE_VET;
+    console.table(vetResponse)
+    select.appendChild(firstOption);
+
+    vetResponse.forEach(vet => {
+        if (vet.iD_VET !== adminResponse.iD_VET) {
+            let option = document.createElement('option');
+            option.value = vet.iD_VET;
+            option.textContent = vet.namE_VET;
+            select.appendChild(option);
+        }
+    });
+
+    select.value = adminResponse.iD_VET;
+}
+
+
 

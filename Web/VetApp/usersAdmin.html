@@ -73,7 +73,7 @@
                      <div class="row column_title page_title">
                         <div class="col-8">
                            <div>
-                              <h2>Trabajadores</h2>
+                              <h2>Administradores</h2>
                            </div>
                         </div>
                         <div class="col-2">
@@ -98,7 +98,7 @@
                            <div class="white_shd full margin_bottom_30"> 
                               <div class="full graph_head">
                                  <div class="heading1 margin_0"> 
-                                    <h2>Agregar Trabajador </h2>
+                                    <h2>Agregar Admininstrador </h2>
 
                                  </div>
                               </div>
@@ -133,15 +133,15 @@
                                        <div class="input-group">
                                          <input type="password" class="form-control formularioM"  name="pass" required>
                                        </div>
-                                     </div>
-                                     <div class="col-4">
+                                    </div>
+                                    <div class="col-4">
                                        <label  class="form-label">Veterinaria</label>           
                                        <div class="input-group">
                                           <select id="vetSelectInsert" class="js-example-basic-single form-control " name="vet">
                                           </select>
                                        </div>  
                                     </div>
-                                     <div class="col-12 text-center" id="loadingInsert">
+                                    <div class="col-12 text-center" id="loadingInsert">
                                        <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
                                     </div>
                                     <div  class="row mt-3" id="botonesInsert">
@@ -151,18 +151,18 @@
                                        <div class="col-6 text-center">
                                         <button type="button" class="btn cur-p btn-outline-danger text-black" id="CancelarInsert">Cancelar</button>
                                       </div>
-
+                                      
                                     </div>
                                   </form>
                               </div>
 
                            </div>
                         </div>
-                           <div class="col-12" id="form_action_edit" hidden>
-                              <div class="white_shd full margin_bottom_30"> 
+                        <div class="col-12" id="form_action_edit" hidden>
+                           <div class="white_shd full margin_bottom_30"> 
                                  <div class="full graph_head">
                                     <div class="heading1 margin_0"> 
-                                       <h2>Editar Trabajador </h2>
+                                       <h2>Editar Administrador </h2>
                                     </div>
                                  </div>
                                  <div class="full graph_head">
@@ -184,8 +184,15 @@
                                        </div>
                                        
                                        <div class="col-6">
-                                         <label  class="form-label">Correo Electronico</label>
-                                         <input type="email" class="form-control formularioM" id="email" name="email" required>
+                                          <label  class="form-label">Correo Electronico</label>
+                                          <input type="email" class="form-control formularioM" id="email" name="email" required>
+                                       </div>
+                                       <div class="col-6">
+                                          <label  class="form-label">Veterinaria</label>           
+                                          <div class="input-group">
+                                             <select id="vetSelect" class="js-example-basic-single form-control " name="vet">
+                                             </select>
+                                          </div>  
                                        </div>
                                        <input type="hidden" class="form-control formularioM" id="id" name="id">
                                        <div class="col-12 text-center" id="loadingEditar">
@@ -201,7 +208,7 @@
                                        </div>
                                      </form>
                                  </div>
-   
+                                 
                               </div>
                            </div>
                            
@@ -212,7 +219,7 @@
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">
-                                    <h2>Lista de Trabajadores</h2>
+                                    <h2>Lista de Administradores</h2>
                                  </div>
                               </div>
                               <div class="table_section padding_infor_info">
@@ -234,6 +241,9 @@
                                        </tbody>
                                     </table>
                                  </div>
+                              </div>
+                              <div  class="col-12 text-center" id="loadingTable" style="margin-top: 150px;margin-bottom: 70px;">
+                                 <div class="spinner-grow text-success"  role="status"><span class="visually-hidden">Loading...</span> </div>
                               </div>
                            </div>
                         </div>
@@ -260,13 +270,13 @@
             <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Trabajador </h1>
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Administrador </h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
                <div class="modal-body">
                   <form class="row g-3" id="eliminarUser" method="post">
                      <div class="col-12">
-                       <label class="form-label">Cedula Trabajador</label>
+                       <label class="form-label">Cedula Administrador</label>
                        <input type="int" class="form-control formularioM"  id="identification" name="identification" required>
                      </div>
                      <div class="col-12 text-center">

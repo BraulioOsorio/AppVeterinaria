@@ -8,7 +8,7 @@ let FormEdit = document.getElementById("editManager");
 let informacio = document.getElementById("informacio");
 let Cardtt = document.getElementById("Cardtt");
 let Formdelete = document.getElementById("eliminarManager");
-
+let loadingTable = document.getElementById("loadingTable");
 let btn_add = document.getElementById('btn_add');
 let CancelarE = document.getElementById('CancelarEdit');
 let CancelarInfo = document.getElementById('CancelarInfo');
@@ -33,6 +33,7 @@ loadingEditar.hidden = true;
 loadingInsert.hidden = true;
 loadingInfo.hidden = true;
 informacio.hidden = true;
+loadingTable.hidden = false;
 
 const Races = async()=>{
     let headers = new Headers({
@@ -181,6 +182,7 @@ const getManager = async() =>{
     }else{
         mensajes("Hubo un error","error")
     }
+    loadingTable.hidden = true;
     
 }
 
