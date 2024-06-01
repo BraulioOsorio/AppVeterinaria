@@ -363,7 +363,7 @@ namespace ApiVet.Controllers
                                 bool verifity = BCrypt.Net.BCrypt.Verify(login.PASS, pass);
                                 if (verifity)
                                 {
-                                    return Ok(new { status = true, rol = reader["CARGO"], vet = reader["ID_VET"] });
+                                    return Ok(new { status = true, rol = reader["CARGO"], vet = reader["ID_VET"], state = reader["STATE"] });
                                 }
                                 else
                                 {

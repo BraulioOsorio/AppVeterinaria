@@ -4,6 +4,13 @@ let contenidolista = null;
 let fromInser = document.getElementById("InsertJobs");
 let btn_add = document.getElementById('btn_add');
 let CancelarE = document.getElementById('CancelarEdit');
+
+let Gananciasfil = document.getElementById('Gananciasfil');
+let Gastosfil = document.getElementById('Gastosfil');
+let Activosfil = document.getElementById('Activosfil');
+let Finalizadosfil = document.getElementById('Finalizadosfil');
+let Todosfil = document.getElementById('Todosfil');
+
 let CancelarI = document.getElementById('CancelarInsert');
 let botonesEditar = document.getElementById("botonesEditar");
 let loadingEditar = document.getElementById("loadingEditar");
@@ -13,12 +20,19 @@ let form_action_edit = document.getElementById('form_action_edit');
 let botonesInsert = document.getElementById("botonesInsert");
 let loadingInsert = document.getElementById("loadingInsert");
 let loadingTable = document.getElementById("loadingTable");
+let informacio = document.getElementById("informacio");
+let form_action_info = document.getElementById('form_action_info');
+let loadingInfo = document.getElementById("loadingInfo");
+let CancelarInfo = document.getElementById('CancelarInfo');
 
 form_action.hidden = true;
 form_action_edit.hidden = true;
 loadingEditar.hidden = true;
 loadingInsert.hidden = true;
 loadingTable.hidden = false;
+form_action_info.hidden = true;
+loadingInfo.hidden = true;
+informacio.hidden = true;
 
 btn_add.addEventListener('click', async() =>{
     form_action.hidden = false;
@@ -28,19 +42,52 @@ btn_add.addEventListener('click', async() =>{
     populateTrabajadorSelectInsert(users)
 });
 
-CancelarEdit.addEventListener('click',() =>{
+CancelarE.addEventListener('click',() =>{
     form_action_edit.hidden = true;
     form_action_edit.reset()
 });
+
+Gananciasfil.addEventListener('click',() =>{
+    getJobsFil("PROFITS");
+});
+
+Gastosfil.addEventListener('click',() =>{
+    getJobsFil("LOSS");
+});
+Activosfil.addEventListener('click',() =>{
+    getJobsFil("ACTIVO");
+});
+Finalizadosfil.addEventListener('click',() =>{
+    getJobsFil("FINALIZADO");
+});
+Todosfil.addEventListener('click',() =>{
+    getJobs();
+    
+});
+
 CancelarInsert.addEventListener('click',() =>{
     form_action.hidden = true;
     form_action.reset()
 });
 
+
 window.onload = function(){
     contenidolista = document.getElementById("listJobs");
     getJobs();
+    let role = sessionStorage.getItem('ROLE');
+    if (role === 'PROPIETARIO') {
+        let newLi = document.createElement('li');
+        newLi.innerHTML = '<a href="users.html"><i class="fa fa-user yellow_color"></i> <span>Trabajadores</span></a>';
+        let liReference = document.getElementById('liReference');
+        liReference.parentNode.insertBefore(newLi, liReference.nextSibling);
+    }
+    
+    
 }
+CancelarInfo.addEventListener('click',() =>{
+    form_action_info.hidden = true;
+    
+});
 
 const Toast = Swal.mixin({
     toast: true,
@@ -111,6 +158,7 @@ FormEdit.addEventListener('submit', (e) =>{
 });
 
 const getJobs = async() =>{
+    loadingTable.hidden = false;
     let headers = new Headers({
         "accept": "application/json",
         "Content-Type": "application/json"
@@ -140,7 +188,70 @@ const getJobs = async() =>{
                     <td>${response[i].name} ${response[i].lastname}</td>
                     <td>${response[i].namE_PET}</td>
                     <td>${response[i].job}</td>
-                    <td>${response[i].costs}</td>
+                    <td>${response[i].costs.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 })}</td>
+                    <td>${response[i].fullname}</td>
+                    <td>${response[i].state}</td>
+                    <td>${stateEspa}</td>
+                    <td>
+                        <a href="#content" onclick="info(${response[i].iD_JOBS})"><i class="fa fa-info text-black"></i></a>
+                    </td>
+                    <td>
+                        <a href="#content" onclick="editar(${response[i].iD_JOBS})"><i class="fa fa-edit text-black"></i></a>
+                    </td>
+                    <td>
+                        <a href="#content" onclick="deleteUser(${response[i].iD_JOBS})"><i class="fa fa-check-circle text-black"></i></a>
+                    </td>
+                </tr>
+            `;
+            
+            contenidolista.innerHTML += temp;
+        }
+        
+    }else{
+        mensajes("Hubo un error","error")
+    }
+    loadingTable.hidden = true;
+    
+}
+
+const getJobsFil = async(status) =>{
+    loadingTable.hidden = false;
+    let headers = new Headers({
+        "accept": "application/json",
+        "Content-Type": "application/json"
+    });
+
+    const config ={
+        method:'GET',
+        headers:headers
+    };
+    let endpoing;
+    if(status ==="LOSS" || status === "PROFITS"){
+        endpoing = ruta+"api/Jobs/StatusMoney/"+vet+"/"+status;
+        
+    }else{
+        endpoing = ruta+"api/Jobs/Status/"+vet+"/"+status;
+    }
+
+    
+    const consulta = await fetch(endpoing,config);
+    if(consulta.ok){
+
+        const response = await consulta.json();
+        
+        contenidolista.innerHTML = "";
+
+
+        for (var i = 0; i < response.length; i++) {
+            let stateClass = response[i].state === 'FINALIZADO' ? 'table-success' : 'table-warning';
+            let stateEspa = response[i].statE_MONEY === 'PROFITS' ? 'GANANCIA' : 'GASTO';
+            
+            let temp = `
+                <tr class="${stateClass}">
+                    <td>${response[i].name} ${response[i].lastname}</td>
+                    <td>${response[i].namE_PET}</td>
+                    <td>${response[i].job}</td>
+                    <td>${response[i].costs.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 })}</td>
                     <td>${response[i].fullname}</td>
                     <td>${response[i].state}</td>
                     <td>${stateEspa}</td>
@@ -398,5 +509,43 @@ function populateUserSelect(jobsResponse, userResponse) {
     });
 
     select.value = jobsResponse.iD_USER;
+}
+
+const info = async(id) => {
+    loadingInfo.hidden = false;
+    CancelarInfo.hidden = true;
+    informacio.hidden = true; 
+    
+    let headers = new Headers({
+        "accept": "*/*",
+        "Content-Type": "application/json"
+    });
+    const config ={
+        method:'GET',
+        headers:headers
+    };
+
+    let endpoing = ruta+"api/Jobs/OneJob/"+id;
+    const consulta = await fetch(endpoing,config);
+    const response = await consulta.json();
+    console.table(response)
+    if(consulta.ok){
+        document.getElementById("jobinfo").innerHTML = `Trabajo Realizado: <b class="text-black">${response.job} </b> `
+        document.getElementById("trabajadorinfo").innerHTML = `Trabajador: <b class="text-black">${response.name} ${response.lastname}</b> `
+        document.getElementById("costsinfo").innerHTML = `Costo: <b class="text-black">${response.costs} </b> `
+        document.getElementById("cosT_DESCRIPTIONinfo").innerHTML = `Descripcion del Costo: <b class="text-black"> ${response.cosT_DESCRIPTION}</b>`
+        document.getElementById("namE_PETinfo").innerHTML = `Mascota: <b class="text-black">${response.namE_PET} </b> `
+        document.getElementById("raceinfo").innerHTML = `Rasa: <b class="text-black">${response.race} </b> `
+        document.getElementById("fullnameinfo").innerHTML = `Dueño: <b class="text-black">${response.fullname}	</b>`
+        document.getElementById("addresS_MANAGERinfo").innerHTML = `Dirección del Dueño: <b class="text-black">${response.addresS_MANAGER} </b> `
+        document.getElementById("phonE_MANAGERinfo").innerHTML = `Telefono del Dueño: <b class="text-black">${response.phonE_MANAGER} </b> `
+        loadingInfo.hidden = true;
+        informacio.hidden = false; 
+        CancelarInfo.hidden = false;
+    }else{
+        mensajes("Hubo un error al consultar","error")
+    }
+
+    form_action_info.hidden = false;
 }
 

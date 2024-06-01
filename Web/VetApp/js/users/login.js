@@ -49,27 +49,32 @@ const inicio = async(data) =>{
     };
 
     let endpoing = ruta+"Login";
-    console.log(endpoing);
     const consulta = await fetch(endpoing,config);
-    console.log(consulta)
     let response = await consulta.json()
     if (consulta.ok) {
         
         let rol = response.rol;
+        let state = response.state;
         let vet = response.vet;
-        console.log(rol);
         sessionStorage.setItem('vet',vet);
-        if (rol ==='TRABAJADOR'){
+        sessionStorage.setItem('ROLE',rol);
+        if (rol ==='TRABAJADOR' && state == "ACTIVO"){
             window.location = "Mascotas.html"
-        }else if(rol === 'PROPIETARIO'){
+        }else if(rol === 'PROPIETARIO' && state == "ACTIVO"){
             window.location = "users.html"
-        }else if(rol === 'ADMIN'){
+        }else if(rol === 'ADMIN' && state == "ACTIVO"){
             window.location = "usersAdmin.html"
+        
+        }else if ( state == "INACTIVO"){
+            login_section.hidden = false;
+            loading.hidden = true;
+
+            mensajes("El usuario esta desactivado","error")    
         }
+
     }else{
         login_section.hidden = false;
         loading.hidden = true;
-        console.log(response);
         mensajes(response.message,"error")    
     }
 }

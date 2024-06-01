@@ -3,9 +3,7 @@ let vet = sessionStorage.getItem('vet');
 let contenidolista = null;
 let fromInser = document.getElementById("InserPets");
 let form_action = document.getElementById('form_action');
-let form_action_info = document.getElementById('form_action_info');
 let FormEdit = document.getElementById("editPets");
-let informacio = document.getElementById("informacio");
 let loadingTable = document.getElementById("loadingTable");
 let btn_add = document.getElementById('btn_add');
 let CancelarE = document.getElementById('CancelarEdit');
@@ -13,12 +11,19 @@ let CancelarInfo = document.getElementById('CancelarInfo');
 let CancelarI = document.getElementById('CancelarInsert');
 let botonesEditar = document.getElementById("botonesEditar");
 let loadingEditar = document.getElementById("loadingEditar");
+let informacio = document.getElementById("informacio");
+let form_action_info = document.getElementById('form_action_info');
 let loadingInfo = document.getElementById("loadingInfo");
 let Formdelete = document.getElementById("eliminarPet");
 let btn_delete = document.getElementById('btn_delete');
 let form_action_edit = document.getElementById('form_action_edit');
 let botonesInsert = document.getElementById("botonesInsert");
 let loadingInsert = document.getElementById("loadingInsert");
+let form_action_tra = document.getElementById("form_action_tra");
+let loadingtra = document.getElementById('loadingtra');
+let tra = document.getElementById("tra");
+let Cancelartra = document.getElementById('Cancelartra');
+let Cardtt = document.getElementById("Cardtt");
 
 const modal = new bootstrap.Modal('#staticBackdrop', {
     keyboard: false
@@ -26,13 +31,16 @@ const modal = new bootstrap.Modal('#staticBackdrop', {
 
   
 form_action.hidden = true;
-form_action_info.hidden = true;
 form_action_edit.hidden = true;
 loadingEditar.hidden = true;
 loadingInsert.hidden = true;
+form_action_info.hidden = true;
 loadingInfo.hidden = true;
 informacio.hidden = true;
 loadingTable.hidden = false;
+form_action_tra.hidden = true;
+loadingtra.hidden = true;
+tra.hidden = true;
 
 const Races = async()=>{
     let headers = new Headers({
@@ -90,6 +98,10 @@ CancelarInsert.addEventListener('click',() =>{
 
 CancelarInfo.addEventListener('click',() =>{
     form_action_info.hidden = true;
+    
+});
+Cancelartra.addEventListener('click',() =>{
+    form_action_tra.hidden = true;
     
 });
 
@@ -168,6 +180,9 @@ const getPets = async() =>{
                     <td>${response[i].identificatioN_PET}</td>
                     <td>${response[i].state}</td>
                     <td>
+                        <a href="#content" onclick="trabajos(${response[i].iD_PET})"><i class="fa fa-info-circle text-black"></i></a>
+                    </td>
+                    <td>
                         <a href="#content" onclick="info(${response[i].iD_PET})"><i class="fa fa-info-circle text-black"></i></a>
                     </td>
                     <td>
@@ -230,8 +245,8 @@ const InserPets = async(data) =>{
         getPets();
         mensajes("creado con exito","success")
     }else{
-        botonesInsert.hidden = true;
-        loadingInsert.hidden = false;
+        botonesInsert.hidden = false;
+        loadingInsert.hidden = true;
         mensajes("Hubo un error","error")   
     }
 }
@@ -424,6 +439,68 @@ const info = async(id) => {
     }
 
     form_action_info.hidden = false;
+}
+
+const trabajos = async(id) => {
+    loadingtra.hidden = false;
+    Cancelartra.hidden = true;
+    tra.hidden = true; 
+    
+    let headers = new Headers({
+        "accept": "*/*",
+        "Content-Type": "application/json"
+    });
+    const config ={
+        method:'GET',
+        headers:headers
+    };
+
+    let endpoing = ruta+"api/Jobs/ThePet/"+id;
+    const consulta = await fetch(endpoing,config);
+    const response = await consulta.json();
+    console.table(response)
+    
+    if(consulta.ok){
+        console.log(Cardtt)
+        Cardtt.innerHTML = "";
+        
+        if(response.length > 0){
+            for (var i = 0; i < response.length; i++) {
+                let stateClass = response[i].state === 'FINALIZADO' ? 'border border-success' : 'border border-warning';
+                let temp  = `
+                <div class="card col-6 mx-auto mb-2${stateClass}">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">${response[i].namE_PET}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-dark ">Rasa: ${response[i].race}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Trabajo: ${response[i].job}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Costo: ${response[i].costs}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Descripción del Costo: ${response[i].cosT_DESCRIPTION}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Dueño: ${response[i].fullname}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Telefono Dueño: ${response[i].phonE_MANAGER}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-dark">Trabajador: ${response[i].name} ${response[i].lastname}</h6>
+                    </div>
+                </div>
+            `;
+                
+                Cardtt.innerHTML += temp;
+            }
+            loadingtra.hidden = true;
+            tra.hidden = false; 
+            Cancelartra.hidden = false;
+            form_action_tra.hidden = false;
+        }else{
+            
+            mensajes("No tiene Trabajos realizados","info")
+            Cancelartra.hidden = true;
+            loadingtra.hidden = true;
+            form_action_tra.hidden = true;
+        }
+        
+    }else{
+        mensajes("Hubo un error al consultar","error")
+    }
+
+    
 }
 
 

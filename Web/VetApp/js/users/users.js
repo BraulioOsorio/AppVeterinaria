@@ -165,8 +165,8 @@ const insertUser = async(data) =>{
         getUsers();
         mensajes("creado con exito","success")
     }else{
-        botonesInsert.hidden = true;
-        loadingInsert.hidden = false;
+        botonesInsert.hidden = false;
+        loadingInsert.hidden = true;
         mensajes("Hubo un error","error")    }
 }
 const editar = async(id) => {

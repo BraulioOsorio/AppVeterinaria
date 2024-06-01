@@ -404,7 +404,7 @@ const info = async(id) => {
             for (var i = 0; i < response.length; i++) {
                 let stateClass = response[i].state === 'ACTIVO' ? 'border border-success' : 'border border-warning';
                 let temp  = `
-                <div class="card col-4 mx-auto mb-2 ${stateClass}">
+                <div class="card col-4 mx-auto mb-2${stateClass}">
                     <div class="card-body">
                         <h5 class="card-title">${response[i].namE_PET}</h5>
                         <h6 class="card-subtitle mb-2 text-body-dark">Rasa: ${response[i].racE_NAME}</h6>
@@ -423,18 +423,20 @@ const info = async(id) => {
             loadingInfo.hidden = true;
             informacio.hidden = false; 
             CancelarInfo.hidden = false;
+            form_action_info.hidden = false;
         }else{
             
             mensajes("No tiene mascotas","info")
             CancelarInfo.hidden = true;
             loadingInfo.hidden = true;
+            form_action_info.hidden = true;
         }
         
     }else{
         mensajes("Hubo un error al consultar","error")
     }
 
-    form_action_info.hidden = false;
+    
 }
 
 

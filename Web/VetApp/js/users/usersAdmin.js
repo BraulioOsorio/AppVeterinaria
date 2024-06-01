@@ -140,12 +140,14 @@ const getUsers = async() =>{
             `;
             
             contenidolista.innerHTML += temp;
+            loadingTable.hidden = true;
         }
         
     }else{
         mensajes("Hubo un error","error")
+        loadingTable.hidden = false;
     }
-    loadingTable.hidden = true;
+    
     
 }
 

@@ -282,7 +282,7 @@ namespace ApiVet.Controllers
                                     INNER JOIN MANAGER ON PET.ID_MANAGER = MANAGER.ID_MANAGER
                                     INNER JOIN RACE ON PET.ID_RACE = RACE.ID_RACE
                                     INNER JOIN USER ON JOBS.ID_USER = USER.ID_USER
-                                    INNER JOIN VET ON PET.ID_VET = VET.ID_VET  WHERE JOBS.ID_VET = @id AND JOBS.STATE = @state ";
+                                    INNER JOIN VET ON PET.ID_VET = VET.ID_VET  WHERE JOBS.ID_VET = @id AND JOBS.STATE = @state";
                 using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
                 {
                     comando.Parameters.AddWithValue("@id", id);
