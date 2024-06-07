@@ -1,31 +1,75 @@
 import { Router } from "express";
 import { prisma } from "../db/index.js";
-const router = Router()
+import { validationResult } from 'express-validator';
 
-router.get('/posts',async (req,res) => {
-    const posts = await prisma.post.findMany({include:{author:true}})
-    res.json(posts)
-})
+import validations from '../validators/validationsPost.js';
 
-router.post('/createPost', async (req,res) =>{
-    const newPost = await prisma.post.create({data:req.body})
-    res.json(newPost)
-})
+const router = Router();
 
-router.get('/findPost/:id', async (req,res) => {
-    let post = await prisma.post.findFirst({where:{id:+req.params.id}})
-    res.json(post)
-})
+const validate = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  next();
+};
 
-router.delete('/deletePost/:id', async (req,res) => {
-    let postDelete = await prisma.post.delete({where:{id:+req.params.id}})
-    res.json(postDelete)
-})
+router.get('/posts', async (req, res) => {
+    try {
+        const posts = await prisma.post.findMany({ include: { author: true } });
+        res.json(posts);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
-router.put('/updatePost/:id', async (req,res) => {
-    let postUpdate = await prisma.post.update({where:{id:+req.params.id},data:req.body})
-    res.json(postUpdate)
-})
+router.post('/createPost', validations.createPostValidation, validate, async (req, res) => {
+    console.log('Request body:', req.body);
+    try {
 
+        const newPost = await prisma.post.create({ data: req.body });
 
-export default router
+        res.json(newPost);
+    } catch (error) {
+
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/findPost/:id', validations.findPostValidation, validate, async (req, res) => {
+    try {
+        const post = await prisma.post.findFirst({ where: { id: +req.params.id } });
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        res.json(post);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.delete('/deletePost/:id', validations.deletePostValidation, validate, async (req, res) => {
+    try {
+        const postDelete = await prisma.post.delete({ where: { id: +req.params.id } });
+        if (!postDelete) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        res.json({ message: 'Post deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.put('/updatePost/:id',validations.updatePostValidation ,validate, async (req, res) => {
+    try {
+        const postUpdate = await prisma.post.update({ where: { id: +req.params.id }, data: req.body });
+        if (!postUpdate) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        res.json(postUpdate);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+export default router;

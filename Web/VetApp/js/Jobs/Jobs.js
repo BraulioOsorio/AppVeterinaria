@@ -41,6 +41,17 @@ btn_add.addEventListener('click', async() =>{
     populatePetSelectInsert(pets)
     populateTrabajadorSelectInsert(users)
 });
+window.onload = function(){
+    contenidolista = document.getElementById("listJobs");
+    getJobs();
+    let role = sessionStorage.getItem('ROLE');
+    if (role === 'PROPIETARIO') {
+        let newLi = document.createElement('li');
+        newLi.innerHTML = '<a href="users.html"><i class="fa fa-user yellow_color"></i> <span>Trabajadores</span></a>';
+        let liReference = document.getElementById('liReference');
+        liReference.parentNode.insertBefore(newLi, liReference.nextSibling);
+    }
+};
 
 CancelarE.addEventListener('click',() =>{
     form_action_edit.hidden = true;
@@ -71,19 +82,7 @@ CancelarInsert.addEventListener('click',() =>{
 });
 
 
-window.onload = function(){
-    contenidolista = document.getElementById("listJobs");
-    getJobs();
-    let role = sessionStorage.getItem('ROLE');
-    if (role === 'PROPIETARIO') {
-        let newLi = document.createElement('li');
-        newLi.innerHTML = '<a href="users.html"><i class="fa fa-user yellow_color"></i> <span>Trabajadores</span></a>';
-        let liReference = document.getElementById('liReference');
-        liReference.parentNode.insertBefore(newLi, liReference.nextSibling);
-    }
-    
-    
-}
+
 CancelarInfo.addEventListener('click',() =>{
     form_action_info.hidden = true;
     
